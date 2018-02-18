@@ -38,13 +38,13 @@ public class BookServiceImpl implements BookService{
 	}
 
 	@Override
-	public int getBookPagetotalNum() throws Exception {
+	public int getBookPagetotalNum(int numPerPage) throws Exception {
 		// TODO Auto-generated method stub
 		 int total = this.getBookTotalCount();
-		 if(total%PageUtil.NumPerPageInBack==0){
-			 return total/PageUtil.NumPerPageInBack; 
+		 if(total%numPerPage==0){
+			 return total/numPerPage; 
 		 }else{
-			 return total/PageUtil.NumPerPageInBack + 1;
+			 return total/numPerPage + 1;
 		 }
 	}
 
@@ -114,16 +114,12 @@ public class BookServiceImpl implements BookService{
 	
 //	public void fun() {
 //		try {
-//			int num = bookMapperCustom.getBookTotalCount();
-//			System.out.println(num);
-//			List<BookCustom> bookList = bookMapperCustom.getBookListLimit(1, num);
+//			List<BookCustom> bookList = bookMapperCustom.getBookListLimit(0, bookMapperCustom.getBookTotalCount());
 //			for(BookCustom bookCustom : bookList){
-//				//System.out.println(bookCustom);
-//				String image = bookCustom.getImagew();
-//				image = image.substring(image.lastIndexOf("/")+1);
-//				System.out.println(image);
-//				bookCustom.setImagew(image);
-//				bookMapper.updateByPrimaryKeySelective(bookCustom);
+//				if(bookCustom.getDescription()==null||bookCustom.getDescription()==""){
+//					bookCustom.setDescription("无");
+//					bookMapper.updateByPrimaryKeySelective(bookCustom);
+//				}
 //			}
 //		} catch (Exception e) {
 //			// TODO Auto-generated catch block

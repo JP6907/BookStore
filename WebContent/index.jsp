@@ -17,7 +17,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  
  <body>
 	<h1>Jsp File</h1><hr>
-	访问login
+	后台访问：login 
+	<br>
+	书店页面：jsp/shop/main.jsp  （为什么这里 FormController 不会生效）
+	<br>
+
  </body>
  
 </html>

@@ -49,15 +49,13 @@
 		</property>	
 	</bean> -->
 	<!-- 自定义拦截器 -->
-    <!-- <mvc:interceptors>
+    <mvc:interceptors>
         <mvc:interceptor>
-            拦截所有请求
             <mvc:mapping path="/*"/>
             <mvc:mapping path="/*/*"/>
-            不拦截图片资源
-            <mvc:exclude-mapping path="/images/*"/>            
-            使用bean定义一个Interceptor
+            <mvc:mapping path="/*/*/*"/>
+            <mvc:exclude-mapping path="/book_img/*"/>            
             <bean class="com.jp.interceptor.AuthorizationInterceptor"></bean>
         </mvc:interceptor>
-    </mvc:interceptors> -->
+    </mvc:interceptors>
 </beans>

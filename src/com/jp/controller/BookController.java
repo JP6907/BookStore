@@ -40,7 +40,7 @@ public class BookController {
 		 	//默认获取第一页
 		 	int page = 1;
 		 	//总页码数
-		 	int pageNumTotal = bookService.getBookPagetotalNum();
+		 	int pageNumTotal = bookService.getBookPagetotalNum(PageUtil.NumPerPageInBack);
 		 	//如果有指定页码
 		 	if(pageNumNow!=null){
 		 		page = pageNumNow>=1?pageNumNow:1;

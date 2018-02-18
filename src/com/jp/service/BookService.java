@@ -21,7 +21,7 @@ public interface BookService {
 	//获取书的总数量
 	int getBookTotalCount() throws Exception;
 	//获取书的页数
-	int getBookPagetotalNum() throws Exception;
+	int getBookPagetotalNum(int numPerPage) throws Exception;
 	//添加书籍
 	void addBook(BookCustom bookCustom,MultipartFile image, String imagePath) throws Exception;
 	//删除书籍
