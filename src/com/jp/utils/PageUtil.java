@@ -7,7 +7,7 @@ public class PageUtil {
 	//后台显示每页数据量
 	public static int NumPerPageInBack = 8;
 	//书店页面每页数量
-	public static int NumPerPageInFront = 12;
+	public static int NumPerPageInFront = 28;
 	//页面选择处可跳转的范围
 	private static int PageSelectRange = 5;
 	/**

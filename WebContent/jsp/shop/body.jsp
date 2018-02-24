@@ -25,10 +25,12 @@ a {text-decoration: none;}
   </head>
   
   <body>
-    <h1>欢迎进入网上二手书城</h1>
-    <a href="${pageContext.request.contextPath}/bookShop/toBookList" target="body">
-      	图书列表
-    </a>
+    <div style="text-align:center">
+    	<h1>欢迎进入网上二手书城</h1>
+	    <a href="${pageContext.request.contextPath}/bookShop/toBookList" target="body">
+	      	点击进入系统......
+	    </a>	
+    </div>
     <br/>
   </body>
 </html>
