@@ -20,6 +20,7 @@
 	<link rel="stylesheet" href="<c:url value='/jsp/search/css/font-awesome.min.css'/>">
 	<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/jsp/search/css/demo.css'/>"> --%>
 	<link rel="stylesheet" href="<c:url value='/jsp/search/css/style.css'/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/ranking.css'/>">
 	
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/book/list.css'/>">
 	<script type="text/javascript" src="<c:url value='/jsp/shop/jquery/jquery-1.5.1.js'/>"></script>
@@ -35,7 +36,7 @@
 		#listleft{
 			float:left;
 			border:1px;   
-			width:15%;  
+			width:18%;  
 			-webkit-box-shadow: rgba(0,0,0,.1) 0 1px 5px;
 		    -moz-box-shadow: rgba(0,0,0,.1) 0 1px 5px;
 		    box-shadow: rgba(0,0,0,.1) 0 1px 5px;
@@ -43,7 +44,7 @@
 		#listright{
 			float:right;
 			border:1px;   
-			width:85%;  
+			width:82%;  
 			-webkit-box-shadow: rgba(0,0,0,.1) 0 1px 5px;
 		    -moz-box-shadow: rgba(0,0,0,.1) 0 1px 5px;
 		    box-shadow: rgba(0,0,0,.1) 0 1px 5px;
@@ -168,11 +169,73 @@
 	</div>
 	
 	<div id="listleft">
+		<!-- <br><br><br><br><br><br><br><br><br><br><br>图书分类/公告......
 		<br><br><br><br><br><br><br><br><br><br><br>图书分类/公告......
 		<br><br><br><br><br><br><br><br><br><br><br>图书分类/公告......
-		<br><br><br><br><br><br><br><br><br><br><br>图书分类/公告......
-		<br><br><br><br><br><br><br><br><br><br><br>图书分类/公告......		
-	</div>
+		<br><br><br><br><br><br><br><br><br><br><br>图书分类/公告......		 -->
+		<div class="ranking">
+		<div class="box2" id="book_rank">
+			  <h2><a href="#" class="more">更多</a>销售排行榜</h2>
+			  <div class="rankinner">
+			    <ul class="rank_list">
+			        <li class="top3"><em>1</em><a title="Java Web整合开发实战" target="_blank" href="#">
+			Java Web整合开发实</a><span>621</span></li>
+				    <li class="top3"><em>2</em><a title="OSGi实战" target="_blank" href="#">
+			OSGi实战</a><span>589</span></li>
+					<li class="top3"><em>3</em><a title="Java核心技术：卷Ⅰ基础知识（原书第8版）" target="_blank" href="#">
+			Java核心技术：卷Ⅰ基础知识（原书第8版）</a><span>532</span></li>
+					<li  ><em>4</em><a title="Java7入门经典" target="_blank" href="#">
+			Java7入门经典</a><span>456</span></li>
+					<li  ><em>5</em><a title="Java深入解析——透析Java本质的36个话题" target="_blank" href="#">
+			Java深入解析——透析Java本质的36个话题</a><span>431</span></li>
+					<li  ><em>6</em><a title="Struts2技术内幕：深入解析Struts架构设计与实现原理" target="_blank" href="#">
+			Struts2技术内幕：深入解析Struts架构设计与实现原理</a><span>387</span></li>
+					<li  ><em>7</em><a title="Tomcat与Java Web开发技术详解（第2版）" target="_blank" href="#">
+			Tomcat与Java Web开发技术详解（第2版）</a><span>335</span></li>
+					<li  ><em>8</em><a title="基于MVC的JavaScript Web富应用开发" target="_blank" href="#">
+			基于MVC的JavaScript Web富应用开发</a><span>256</span></li>
+					<li  ><em>9</em><a title="HTML5+JavaScript动画基础" target="_blank" href="#">
+			HTML5+JavaScript动画基础</a><span>153</span></li>
+					<li  ><em>10</em><a title="深入浅出Ext JS(第3版)" target="_blank" href="#">
+			深入浅出Ext JS(第3版)</a><span>78</span></li>
+			    </ul>
+			  </div>
+			</div>
+			</div>
+			
+			<br>
+			
+			<div class="ranking">
+		<div class="box2" id="book_rank">
+			  <h2><a href="#" class="more">更多</a>人气排行榜</h2>
+			  <div class="rankinner">
+			    <ul class="rank_list">
+			    	<li class="top3"><em>1</em><a title="Tomcat与Java Web开发技术详解（第2版）" target="_blank" href="#">
+			Tomcat与Java Web开发技术详解（第2版）</a><span>335</span></li>
+			        <li class="top3"><em>2</em><a title="Java Web整合开发实战" target="_blank" href="#">
+			Java Web整合开发实</a><span>621</span></li>
+					<li class="top3"><em>3</em><a title="基于MVC的JavaScript Web富应用开发" target="_blank" href="#">
+			基于MVC的JavaScript Web富应用开发</a><span>256</span></li>
+				    <li  ><em>4</em><a title="Struts2技术内幕：深入解析Struts架构设计与实现原理" target="_blank" href="#">
+			Struts2技术内幕：深入解析Struts架构设计与实现原理</a><span>387</span></li>
+					<li ><em>5</em><a title="Java核心技术：卷Ⅰ基础知识（原书第8版）" target="_blank" href="#">
+			Java核心技术：卷Ⅰ基础知识（原书第8版）</a><span>532</span></li>
+					<li  ><em>6</em><a title="深入浅出Ext JS(第3版)" target="_blank" href="#">
+			深入浅出Ext JS(第3版)</a><span>78</span></li>
+					<li  ><em>7</em><a title="Java深入解析——透析Java本质的36个话题" target="_blank" href="#">
+			Java深入解析——透析Java本质的36个话题</a><span>431</span></li>
+					<li  ><em>8</em><a title="Java7入门经典" target="_blank" href="#">
+			Java7入门经典</a><span>456</span></li>
+					<li  ><em>9</em><a title="HTML5+JavaScript动画基础" target="_blank" href="#">
+			HTML5+JavaScript动画基础</a><span>153</span></li>
+					<li ><em>10</em><a title="OSGi实战" target="_blank" href="#">
+			OSGi实战</a><span>589</span></li>
+					
+			    </ul>
+			  </div>
+			</div>
+			</div>
+		</div>
 </div>	
 
   </body>
