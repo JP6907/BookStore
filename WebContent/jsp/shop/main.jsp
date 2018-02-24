@@ -21,8 +21,11 @@
   </head>
   
   <body>
-<table class="table" align="center">
-	<%-- <tr class="trTop">
+  <div align="center">
+  	<iframe frameborder="0" src="<c:url value='/jsp/shop/body.jsp'/>" name="body"></iframe>
+  </div>
+<%-- <table class="table" align="center">
+	<tr class="trTop">
 		<td colspan="2" class="tdTop">
 			<iframe frameborder="0" src="<c:url value='/jsp/shop/top.jsp'/>" name="top"></iframe>
 		</td>
@@ -35,12 +38,12 @@
 		<td class="tdSearch" style="border-bottom-width: 0px;">
 			<iframe frameborder="0" src="<c:url value='/jsp/shop/search.jsp'/>" name="search"></iframe>
 		</td>
-	</tr> --%>
+	</tr>
 	<tr>
 		<td style="border-top-width: 0px;">
 			<iframe frameborder="0" src="<c:url value='/jsp/shop/body.jsp'/>" name="body"></iframe>
 		</td>
 	</tr>
-</table>
+</table> --%>
   </body>
 </html>

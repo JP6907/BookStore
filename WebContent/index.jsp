@@ -21,6 +21,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br>
 	书店页面：jsp/shop/main.jsp  （为什么这里 FormController 不会生效）
 	<br>
+	去边框： jsp/shop/body.jsp
+	<br>
 
  </body>
  

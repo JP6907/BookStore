@@ -22,8 +22,6 @@
 	<link rel="stylesheet" href="<c:url value='/jsp/search/css/style.css'/>">
 	
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/book/list.css'/>">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/pager/pager.css'/>" />
-    <script type="text/javascript" src="<c:url value='/jsp/shop/pager/pager.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/jsp/shop/jquery/jquery-1.5.1.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/jsp/shop/js/book/list.js'/>"></script>
 
@@ -83,7 +81,7 @@
 			<a href="#" style="float:right;margin-right:10px">退出</a>
 		</div>
 		
-			<h1 style="text-align: center;">二手书城系统</h1>
+			<h1 style="text-align: center;">二手旧书网</h1>
 		<div style="float:right;margin-right:10px">
 			<%-- 根据用户是否登录，显示不同的链接 --%>
 			<a href="#" >登录</a> |&nbsp; 
@@ -106,7 +104,9 @@
 	</div>
 	<div class="search d1">
 	  <form>
-		  <input type="text" placeholder="搜索从这里开始...">
+	  		<%-- <a href="javascript:document.getElementById('form1').submit();"><img align="top" border="0" src="../shop/images/btn.bmp"/></a>
+    		<a href="<c:url value='/shop/gj.jsp'/>" style="font-size: 10pt; color: #404040;" target="body">高级搜索</a> --%>
+		  <input type="text" placeholder=" lsbn/类型/书名...">
 		  <button type="submit"></button>
 	  </form>
 	</div>
@@ -143,9 +143,9 @@
 		
 		</ul>
 	</div>
-	<div class="page">
-		<table style="float:right;font-family:FZYaoti;font-size:14px;">
-	    	<tr style="height:30px;">
+	<div class="page" >
+		<table style="font-family:FZYaoti;font-size:14px;width:100%;">
+	    	<tr style="height:30px;float:right">
 				<td width="40"><a href = "${pageContext.request.contextPath}/bookShop/toBookList?pageNumNow=1" >首页</a></td>
 				<td width="50"><a href = "${pageContext.request.contextPath}/bookShop/toBookList?pageNumNow=${pageNumNow-1 }" >上一页 </a></td>
 			<c:forEach items="${requestScope.pageList }" var="pageNum">

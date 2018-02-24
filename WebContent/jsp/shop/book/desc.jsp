@@ -17,13 +17,14 @@
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/pager/pager.css'/>" />
-    <script type="text/javascript" src="<c:url value='/jsp/shop/pager/pager.js'/>"></script>
 	<script src="<c:url value='/jsp/shop/jquery/jquery-1.5.1.js'/>"></script>
 	
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/book/desc.css'/>">
 	<script src="<c:url value='/jsp/shop/js/book/desc.js'/>"></script>
 	<style type="text/css">
+		body{
+			margin:0px;
+		}
 		.descMain{
 			/* margin:0 auto;  */
 			margin-left: 120px;
@@ -31,7 +32,7 @@
 		}
 		.listTop {
 			height:100px;
-			background:#CDB38B;
+			background: #CDB38B;
 			margin: 0px;
 			color: #ffffff;
 		}
@@ -63,7 +64,7 @@
 				<a href="#" style="float:right;margin-right:10px">退出</a>
 			</div>
 			
-			<h1 style="text-align: center;">二手书城系统</h1>
+			<h1 style="text-align: center;">二手旧书网</h1>
 			<div style="float:right;margin-right:10px">
 					<%-- 根据用户是否登录，显示不同的链接 --%>
 				<a href="#" >登录</a> |&nbsp; 

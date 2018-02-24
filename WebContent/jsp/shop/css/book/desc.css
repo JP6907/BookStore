@@ -1,7 +1,7 @@
 a {text-decoration: none; color: #018BD3;}
 a:visited {color: #018BD3;}
 a:hover {color:#FF6600; text-decoration: underline;}
-body {font-size: 10pt;color: #404040;font-family: SimSun;}
+body {margin: 0px;font-size: 10pt;color: #404040;font-family: SimSun; }
 table {font-size: 10pt;margin-top: 15px;margin-left: 50px;width: 500px;}
 td{height: 25px;}
 .divBookName {font-size: 13pt; font-weight: 900; margin-bottom: 30px;}
