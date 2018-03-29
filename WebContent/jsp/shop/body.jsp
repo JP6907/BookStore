@@ -27,8 +27,8 @@ a {text-decoration: none;}
   <body>
     <div style="text-align:center">
     	<h1>欢迎进入网上二手书城</h1>
-	    <a href="${pageContext.request.contextPath}/bookShop/toBookList" >
-	      	点击进入系统......
+	    <a href="${pageContext.request.contextPath}/user/login?loginname=ZhangSan&password=123456" >
+	      	点击登陆......
 	    </a>	
     </div>
     <br/>

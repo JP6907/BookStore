@@ -21,87 +21,47 @@
 	<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/jsp/search/css/demo.css'/>"> --%>
 	<link rel="stylesheet" href="<c:url value='/jsp/search/css/style.css'/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/ranking.css'/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/top.css?version=20180329'/>">
 	
-	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/book/list.css'/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/book/list.css?version=20180328'/>">
 	<script type="text/javascript" src="<c:url value='/jsp/shop/jquery/jquery-1.5.1.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/jsp/shop/js/book/list.js'/>"></script>
 
 	
-	<style type="text/css">
-		#listmain{
-			float:left;
-			border:1px;   
-			width:100%;  
-		}
-		#listleft{
-			float:left;
-			border:1px;   
-			width:18%;  
-			-webkit-box-shadow: rgba(0,0,0,.1) 0 1px 5px;
-		    -moz-box-shadow: rgba(0,0,0,.1) 0 1px 5px;
-		    box-shadow: rgba(0,0,0,.1) 0 1px 5px;
-		}
-		#listright{
-			float:right;
-			border:1px;   
-			width:82%;  
-			-webkit-box-shadow: rgba(0,0,0,.1) 0 1px 5px;
-		    -moz-box-shadow: rgba(0,0,0,.1) 0 1px 5px;
-		    box-shadow: rgba(0,0,0,.1) 0 1px 5px;
-		}
-		.listTop {
-			height:100px;
-			background:#CDB38B;
-			margin: 0px;
-			color: #ffffff;
-		}
-		.listTop a {
-			text-decoration:none;
-			color: #ffffff;
-			font-weight: 900;
-		} 
-		.listTop a:hover {
-			text-decoration: underline;
-			color: #ffffff;
-			font-weight: 900;
-		}	
-		.page a{text-decoration:none;  }
-		.page a:link {color: #708090}            
-		.page a:visited {color: #708090}        
-		.page a:hover {color: #6495ED}          
-		.page a:active {color: #708090}  
-	</style>
+	
   </head>
   
   <body>
-<div id="listmain">
+<div class="listmain">
 	<div class="listTop" style="font-size: 10pt;">
 		<div class="current">&nbsp;当前位置：
 			<a href="javascript:void(0)" style="color:#6E6E6E;">书店</a> &gt;      
 			<a href="javascript:void(0)" style="color:#6E6E6E;">图书列表</a>
-			<a href="#" style="float:right;margin-right:10px">退出</a>
-		</div>
-		
-			<h1 style="text-align: center;">二手旧书网</h1>
-		<div style="float:right;margin-right:10px">
+			<!-- <a href="#" style="float:right;margin-right:10px">退出</a> -->
+			<div style="float:right;margin-right:5px">
 			<%-- 根据用户是否登录，显示不同的链接 --%>
-			<a href="#" >登录</a> |&nbsp; 
-			<a href="#" >注册</a>	
-			<%-- <c:choose>
-				<c:when test="${empty sessionScope.sessionUser }">
-					  <a href="<c:url value='/jsps/user/login.jsp'/>" target="_parent">会员登录</a> |&nbsp; 
-					  <a href="<c:url value='/jsps/user/regist.jsp'/>" target="_parent">注册会员</a>	
+			<c:choose>
+				<c:when test="${empty sessionScope.user }">
+					  <%-- <a href="<c:url value='/jsps/user/login.jsp'/>" target="_parent">会员登录</a> |&nbsp; 
+					  <a href="<c:url value='/jsps/user/regist.jsp'/>" target="_parent">注册会员</a>	 --%>
+					  <a href="${pageContext.request.contextPath}/jsp/shop/body.jsp" >登录</a> |&nbsp; 
+					  <a href="#" >注册</a>	
 				</c:when>
 				<c:otherwise>
-					      会员：${sessionScope.sessionUser.loginname }&nbsp;&nbsp;|&nbsp;&nbsp;
-					  <a href="<c:url value='/CartItemServlet?method=myCart'/>" target="body">我的购物车</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-					  <a href="<c:url value='/OrderServlet?method=myOrders'/>" target="body">我的订单</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-					  <a href="<c:url value='/jsps/user/pwd.jsp'/>" target="body">修改密码</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-					  <a href="<c:url value='/UserServlet?method=quit'/>" target="_parent">退出</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-					  <a href="http://www.itcast.cn/channel/contact.shtml" target="_top">联系我们</a>	
+					      您好：${sessionScope.user.loginname }&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="${pageContext.request.contextPath}/cartitem/getCartitem" >
+					  			我的购物车</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="<c:url value='#'/>" >我的订单</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="<c:url value='#'/>" >修改密码</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="${pageContext.request.contextPath}/user/loginout" >退出</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:otherwise>
-			</c:choose> --%>
+			</c:choose>
 		</div>
+		</div>
+		
+		
+		
+		<h1 style="text-align: center;">二手旧书网</h1>
 	</div>
 	<div class="search d1">
 	  <form>
@@ -138,6 +98,7 @@
 				<span>出 版 社：</span><a href="${pressUrl }">${book.press }</a>
 			</p>
 			<p class="publishing_time"><span>出版时间：</span>${book.publishtime }</p>
+			<p class="price_s"><span>发布者： 自营</span></p>
 		  </div>
 		  </li>
 		</c:forEach>

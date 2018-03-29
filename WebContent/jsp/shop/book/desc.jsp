@@ -19,7 +19,7 @@
 	-->
 	<script src="<c:url value='/jsp/shop/jquery/jquery-1.5.1.js'/>"></script>
 	
-	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/book/desc.css'/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/book/desc.css?version=201803288'/>">
 	<script src="<c:url value='/jsp/shop/js/book/desc.js'/>"></script>
 	<style type="text/css">
 		body{
@@ -58,19 +58,34 @@
   
   <div>
   		<div class="listTop" style="font-size: 10pt;">
-			<div class="current">&nbsp;当前位置：
-				<a href="javascript:void(0)" style="color:#6E6E6E;">书店</a> &gt;      
-				<a href="javascript:void(0)" style="color:#6E6E6E;">图书列表</a>
-				<a href="#" style="float:right;margin-right:10px">退出</a>
-			</div>
-			
-			<h1 style="text-align: center;">二手旧书网</h1>
-			<div style="float:right;margin-right:10px">
-					<%-- 根据用户是否登录，显示不同的链接 --%>
-				<a href="#" >登录</a> |&nbsp; 
-				<a href="#" >注册</a>	
-			</div>
+		<div class="current">&nbsp;当前位置：
+			<a href="javascript:void(0)" style="color:#6E6E6E;">书店</a> &gt;      
+			<a href="javascript:void(0)" style="color:#6E6E6E;">图书列表</a>
+			<!-- <a href="#" style="float:right;margin-right:10px">退出</a> -->
+			<div style="float:right;margin-right:5px">
+			<%-- 根据用户是否登录，显示不同的链接 --%>
+			<c:choose>
+				<c:when test="${empty sessionScope.user }">
+					  <%-- <a href="<c:url value='/jsps/user/login.jsp'/>" target="_parent">会员登录</a> |&nbsp; 
+					  <a href="<c:url value='/jsps/user/regist.jsp'/>" target="_parent">注册会员</a>	 --%>
+					  <a href="${pageContext.request.contextPath}/jsp/shop/body.jsp" >登录</a> |&nbsp; 
+					  <a href="#" >注册</a>	
+				</c:when>
+				<c:otherwise>
+					      您好：${sessionScope.user.loginname }&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="<c:url value='#'/>" >我的购物车</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="<c:url value='#'/>" >我的订单</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="<c:url value='#'/>" >修改密码</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="${pageContext.request.contextPath}/user/loginout" >退出</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				</c:otherwise>
+			</c:choose>
 		</div>
+		</div>
+		
+		
+		
+		<h1 style="text-align: center;">二手旧书网</h1>
+	</div>
 	<div class="descMain">
 	  <div class="divBookName">${book.name }&nbsp;&nbsp[简介：
 	  		<c:choose>	
@@ -118,12 +133,13 @@
 				</tr>
 			</table>
 			<div class="divForm">
-				<form id="form1" action="<c:url value='/CartItemServlet'/>" method="post">
+				<form id="form1" action="${pageContext.request.contextPath}/cartitem/addToCart" method="post">
 					<input type="hidden" name="method" value="add"/>
-					<input type="hidden" name="bid" value="${book.lsbn }"/>
-	  				我要买：<input id="cnt" style="width: 40px;text-align: center;" type="text" name="quantity" value="1"/>件
+					<input id="lsbn" type="hidden" name="lsbn" value="${book.lsbn }"/>
+	  				我要买：<input id="num" style="width: 40px;text-align: center;" type="text" name="num" value="1"/>件
 	  			</form>
-	  			<a id="btn" href="javascript:$('#form1').submit();"></a>
+	  			<a id="btn_purchase" href="javascript:$('#form1').submit();"></a>
+	  			<a id="btn_addToCart" href="javascript:$('#form1').submit();"></a>
 	  		</div>
 		</div>
 	  </div>
