@@ -48,7 +48,7 @@ function validateLoginpass() {
 		$("#loginpassError").css("display", "");
 		$("#loginpassError").text("密码长度必须在3 ~ 20之间！");
 		bool = false;
-	});
+	};
 	return bool;
 }
 

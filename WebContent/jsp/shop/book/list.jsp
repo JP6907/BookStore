@@ -51,7 +51,7 @@
 					      您好：${sessionScope.user.loginname }&nbsp;&nbsp;|&nbsp;&nbsp;
 					  <a href="${pageContext.request.contextPath}/cartitem/getCartitem" >
 					  			我的购物车</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-					  <a href="<c:url value='#'/>" >我的订单</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="<c:url value='/order/toOrderList'/>" >我的订单</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 					  <a href="<c:url value='#'/>" >修改密码</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 					  <a href="${pageContext.request.contextPath}/user/loginout" >退出</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:otherwise>

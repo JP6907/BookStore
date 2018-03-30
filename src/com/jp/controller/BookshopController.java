@@ -9,8 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jp.po.Book;
 import com.jp.po.BookCustom;
+import com.jp.po.OrderCustom;
 import com.jp.service.BookService;
+import com.jp.service.OrderService;
 import com.jp.utils.PageUtil;
 
 /**
@@ -27,6 +30,7 @@ public class BookshopController {
 	@Autowired
 	@Qualifier("bookService")
 	private BookService bookService;
+
 	
 	public BookshopController() {
 		// TODO Auto-generated constructor stub
@@ -57,7 +61,9 @@ public class BookshopController {
         List<BookCustom> bookList = bookService.getBookListByPage(page, PageUtil.NumPerPageInFront);
         
         model.addAttribute("bookList" , bookList);
-		
+        
+        //testOrderService();
+        
 		return "shop/book/list";
 	}
 	
@@ -71,5 +77,17 @@ public class BookshopController {
 		 
 		 return "shop/book/desc";
 	 }
+	
+//	public void testOrderService() throws Exception{
+//		System.out.println("测试orderservice");
+//		List<OrderCustom> orderList = orderService.selectOrdersByUserid("1");
+//		for(OrderCustom orderCustom:orderList){
+//				System.out.println(orderCustom.getOrderid() + "-" +orderCustom.getOrdertime());
+//				List<Book> bookList= orderCustom.getBookList();
+//				System.out.println("该订单有"+bookList.size()+"本书籍");
+//				for(Book book:bookList)
+//					System.out.println(book.getName());
+//		}
+//	}
 
 }

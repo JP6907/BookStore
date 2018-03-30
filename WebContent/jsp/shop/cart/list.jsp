@@ -228,7 +228,8 @@ function jiesuan() {
 <table width="95%" align="center" cellpadding="0" cellspacing="0">
 	<tr align="center" bgcolor="#efeae5">
 		<td align="left" width="50px">
-			<input type="checkbox" id="selectAll" checked="checked"/><label for="selectAll">全选</label>
+			&nbsp;
+			<!-- <input type="checkbox" id="selectAll" checked="checked"/><label for="selectAll">全选</label> -->
 		</td>
 		<td colspan="2">商品名称</td>
 		<td>单价</td>
@@ -242,7 +243,7 @@ function jiesuan() {
 <c:forEach items="${itemList }" var="cartDetails">
 	<tr align="center">
 		<td align="left">
-			<input value="${cartDetails.cartitemid }" type="checkbox" name="checkboxBtn" checked="checked"/>
+			<input value="${cartDetails.cartitemid }" type="checkbox" name="checkboxBtn" />
 		</td>
 		<td align="left" width="70px">
 			<a class="linkImage" href="<c:url value='/jsp/shop/book/desc.jsp'/>"><img border="0" width="54" align="top" src="${pageContext.request.contextPath}/book_img/${cartDetails.imageb }"/></a>
