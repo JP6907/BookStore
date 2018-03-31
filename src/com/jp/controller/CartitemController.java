@@ -41,6 +41,11 @@ public class CartitemController {
 			List<CartDetails> itemList = cartItemService.getCartItemByUserId(userid);
 			
 			model.addAttribute("itemList",itemList);
+			if(session.getAttribute("cartitemid")!=null)
+				model.addAttribute("selectCartitemid",session.getAttribute("cartitemid").toString());
+			else
+				model.addAttribute("selectCartitemid",-1);
+			session.setAttribute("selectCartitemid", null);
 		}
 		
 		return "shop/cart/list";
@@ -55,6 +60,21 @@ public class CartitemController {
 			int userid = user.getUserid();
 			System.out.println(lsbn+","+userid+","+num);
 			cartItemService.addToCart(lsbn, userid, num);
+			session.setAttribute("cartitemid", -1);  //跳转到购物车页面，不需要勾选
+		}
+		return "forward:/cartitem/getCartitem";
+	}
+	@RequestMapping(value="/purchase")
+	public String purchase(Model model,@Param("lsbn")String lsbn,
+				@Param("num")Integer num,HttpSession session) throws Exception{
+		System.out.println("购买");
+		User user = (User)session.getAttribute("user");
+		if(user!=null){
+			int userid = user.getUserid();
+			System.out.println(lsbn+","+userid+","+num);
+			int cartitemid = cartItemService.addToCart(lsbn, userid, num);
+			System.out.println("插入主键："+cartitemid);
+			session.setAttribute("cartitemid", cartitemid);  //跳转到购物车页面，刚添加的要勾选
 		}
 		return "forward:/cartitem/getCartitem";
 	} 

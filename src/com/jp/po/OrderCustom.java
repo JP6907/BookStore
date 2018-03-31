@@ -4,17 +4,17 @@ import java.util.List;
 
 public class OrderCustom extends Orders {
 	
-	private List<Book> bookList;
+	private List<BookCustom> bookList;
 	
 	public OrderCustom() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<Book> getBookList() {
+	public List<BookCustom> getBookList() {
 		return bookList;
 	}
 
-	public void setBookList(List<Book> bookList) {
+	public void setBookList(List<BookCustom> bookList) {
 		this.bookList = bookList;
 	}
 	

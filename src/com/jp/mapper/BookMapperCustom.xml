@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jp.mapper.BookMapperCustom" >
-    <resultMap id="StudentResultMap" type="com.jp.po.Book" >
+    <resultMap id="BookResultMap" type="com.jp.po.BookCustom" >
     <id column="lsbn" property="lsbn" jdbcType="CHAR" />
     <result column="orderBy" property="orderby" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -52,7 +52,7 @@
   		select count(*) from book 
   	</select>
   	
-  	<select id="selectByOrderid"  parameterType="java.lang.String"  resultMap="StudentResultMap">
+  	<select id="selectByOrderid"  parameterType="java.lang.String"  resultType="com.jp.po.BookCustom">
   		select * from book,orders,orderitem
   		where book.lsbn = orderitem.lsbn
   		and orders.orderid = orderitem.orderid 

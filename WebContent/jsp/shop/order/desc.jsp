@@ -16,19 +16,43 @@
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<link rel="stylesheet" type="text/css" href="<c:url value='/jsps/css/order/desc.css'/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/order/desc.css?version=20180334'/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/top.css?version=20180329'/>">
   </head>
   
 <body>
+<div class="listmain">
+	<div class="listTop" style="font-size: 10pt;">
+		<div class="current">&nbsp;当前位置：
+			<a href="javascript:void(0)" style="color:#6E6E6E;">书店</a> &gt;      
+			<a href="javascript:void(0)" style="color:#6E6E6E;">图书列表</a>
+			<!-- <a href="#" style="float:right;margin-right:10px">退出</a> -->
+			<div style="float:right;margin-right:5px">
+			<%-- 根据用户是否登录，显示不同的链接 --%>
+			<c:choose>
+				<c:when test="${empty sessionScope.user }">
+					  <%-- <a href="<c:url value='/jsps/user/login.jsp'/>" target="_parent">会员登录</a> |&nbsp; 
+					  <a href="<c:url value='/jsps/user/regist.jsp'/>" target="_parent">注册会员</a>	 --%>
+					  <a href="${pageContext.request.contextPath}/jsp/shop/body.jsp" >登录</a> |&nbsp; 
+					  <a href="#" >注册</a>	
+				</c:when>
+				<c:otherwise>
+					      您好：${sessionScope.user.loginname }&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="${pageContext.request.contextPath}/cartitem/getCartitem" >
+					  			我的购物车</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="<c:url value='/order/toOrderList'/>" >我的订单</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="<c:url value='#'/>" >修改密码</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="${pageContext.request.contextPath}/user/loginout" >退出</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				</c:otherwise>
+			</c:choose>
+		</div>
+		</div>
+			
+		<h1 style="text-align: center;">二手旧书网</h1>
+	</div>
 	<div class="divOrder">
-		<span>订单号：${order.oid }
-<c:choose>
-	<c:when test="${order.status eq 1 }">(等待付款)</c:when>
-	<c:when test="${order.status eq 2 }">(准备发货)</c:when>
-	<c:when test="${order.status eq 3 }">(等待确认)</c:when>
-	<c:when test="${order.status eq 4 }">(交易成功)</c:when>
-	<c:when test="${order.status eq 5 }">(已取消)</c:when>
-</c:choose>	
+		<span>订单号：${order.orderid }
+			(${order.status})
 		　　　下单时间：${order.ordertime }</span>
 	</div>
 	<div class="divContent">
@@ -51,22 +75,22 @@
 						</tr>
 
 
-<c:forEach items="${order.orderItemList }" var="item">
+<c:forEach items="${order.bookList }" var="book">
 						<tr style="padding-top: 20px; padding-bottom: 20px;">
 							<td class="td" width="400px">
 								<div class="bookname">
-								  <img align="middle" width="70" src="<c:url value='/${item.book.image_b }'/>"/>
-								  <a href="<c:url value='/BookServlet?method=load&bid=${item.book.bid }'/>">${item.book.bname }</a>
+								  <img align="middle" width="70" src="<c:url value='/book_img/${book.imageb }'/>"/>
+								  <a href="<c:url value='/BookServlet?method=load&bid=${item.book.bid }'/>">${book.name }</a>
 								</div>
 							</td>
 							<td class="td" >
-								<span>&yen;${item.book.currPrice }</span>
+								<span>&yen;${book.currprice }</span>
 							</td>
 							<td class="td">
-								<span>${item.quantity }</span>
+								<span>${book.num }</span>
 							</td>
 							<td class="td">
-								<span>&yen;${item.subtotal }</span>
+								<span>&yen;${book.num*book.currprice }</span>
 							</td>			
 						</tr>
 </c:forEach>
@@ -79,17 +103,22 @@
 		<div style="margin: 10px 10px 10px 550px;">
 			<span style="font-weight: 900; font-size: 15px;">合计金额：</span>
 			<span class="price_t">&yen;${order.total }</span><br/>
-<c:if test="${order.status eq 1 }">
-	<a href="<c:url value='/OrderServlet?method=paymentPre&oid=${order.oid }'/>" class="pay"></a><br/>
+<c:if test="${order.status eq '未付款' }">
+	<a href="<c:url value='/OrderServlet?method=paymentPre&oid=${order.orderid }'/>" class="pay"></a><br/>
 </c:if>
-<c:if test="${order.status eq 1 and btn eq 'cancel'}">
-    <a id="cancel" href="<c:url value='/OrderServlet?method=cancel&oid=${order.oid }'/>">取消订单</a><br/>
+<%-- <c:if test="${order.status eq '未付款' and btn eq 'cancel'}"> --%>
+<c:if test="${order.status eq '未付款'}">
+    <a id="cancel" href="<c:url value='/OrderServlet?method=cancel&oid=${order.orderid }'/>">取消订单</a><br/>
 </c:if>
-<c:if test="${order.status eq 3 and btn eq 'confirm'}">
-	<a id="confirm" href="<c:url value='/OrderServlet?method=confirm&oid=${order.oid }'/>">确认收货</a><br/>
+<%-- <c:if test="${order.status eq '已发货' and btn eq 'confirm'}"> --%>
+<c:if test="${order.status eq '已发货'}">
+	<a id="confirm" href="<c:url value='/OrderServlet?method=confirm&oid=${order.orderid }'/>">确认收货</a><br/>
 </c:if>	
 		</div>
 	</div>
+	
+	</div>
+
 </body>
 </html>
 

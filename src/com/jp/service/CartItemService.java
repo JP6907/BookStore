@@ -9,7 +9,7 @@ public interface CartItemService {
 	
 	public List<CartDetails> getCartItemByUserId(Integer userid) throws Exception;
 	
-	public void addToCart(String lsbn,int userid,int num) throws Exception;
+	public int addToCart(String lsbn,int userid,int num) throws Exception;
 	
 	public void deleteCartitemByCartitemid(Integer cartitemid) throws Exception;
 	

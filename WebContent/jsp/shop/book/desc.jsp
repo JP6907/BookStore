@@ -133,17 +133,28 @@
 				</tr>
 			</table>
 			<div class="divForm">
-				<form id="form1" action="${pageContext.request.contextPath}/cartitem/addToCart" method="post">
-					<input type="hidden" name="method" value="add"/>
+				<form id="form1"  method="post">
 					<input id="lsbn" type="hidden" name="lsbn" value="${book.lsbn }"/>
 	  				我要买：<input id="num" style="width: 40px;text-align: center;" type="text" name="num" value="1"/>件
 	  			</form>
-	  			<a id="btn_purchase" href="javascript:$('#form1').submit();"></a>
-	  			<a id="btn_addToCart" href="javascript:$('#form1').submit();"></a>
+	  			<a id="btn_purchase" href="javascript:purchase();"></a>
+	  			<a id="btn_addToCart" href="javascript:addToCart();"></a>
 	  		</div>
 		</div>
 	  </div>
 	  </div>
   </div>
   </body>
+  <script type="text/javascript">
+  function addToCart(method){
+	     document.getElementById("form1").action="${pageContext.request.contextPath}/cartitem/addToCart";
+	     document.getElementById("form1").submit();
+
+  }
+  function purchase(method){
+	     document.getElementById("form1").action="${pageContext.request.contextPath}/cartitem/purchase";
+	     document.getElementById("form1").submit();
+
+}
+  </script>
 </html>

@@ -29,12 +29,21 @@ public class CartItemServiceImpl implements CartItemService{
 	}
 
 	@Override
-	public void addToCart(String lsbn, int userid, int num) throws Exception {
-		Cartitem cartitem = new Cartitem();
+	public int addToCart(String lsbn, int userid, int num) throws Exception {
+		//
+		Cartitem cartitem = cartitemMapperCustom.selectByLsbn(lsbn);
+		if(cartitem!=null){
+			cartitem.setNum(cartitem.getNum()+num);
+			cartitemMapper.updateByPrimaryKeySelective(cartitem);
+			return cartitem.getCartitemid();
+		}else{
+		cartitem = new Cartitem();
 		cartitem.setLsbn(lsbn);
 		cartitem.setUserid(userid);
 		cartitem.setNum(num);
-		cartitemMapper.insertSelective(cartitem);
+		cartitemMapperCustom.insert(cartitem);
+		return cartitem.getCartitemid();//返回插入后的主键
+		}
 	}
 
 	@Override

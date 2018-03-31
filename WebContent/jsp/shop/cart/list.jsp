@@ -242,9 +242,18 @@ function jiesuan() {
 
 <c:forEach items="${itemList }" var="cartDetails">
 	<tr align="center">
-		<td align="left">
+	<c:choose>
+		<c:when test="${cartDetails.cartitemid eq selectCartitemid}">
+			<td align="left">
+			<input value="${cartDetails.cartitemid }" type="checkbox" name="checkboxBtn" checked/>
+			</td>
+		</c:when>
+		<c:otherwise>
+			<td align="left">
 			<input value="${cartDetails.cartitemid }" type="checkbox" name="checkboxBtn" />
-		</td>
+			</td>
+		</c:otherwise>
+	</c:choose>
 		<td align="left" width="70px">
 			<a class="linkImage" href="<c:url value='/jsp/shop/book/desc.jsp'/>"><img border="0" width="54" align="top" src="${pageContext.request.contextPath}/book_img/${cartDetails.imageb }"/></a>
 		</td>

@@ -10,7 +10,7 @@
     <result column="total" property="total" jdbcType="DOUBLE" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <collection property="bookList" javaType="ArrayList" column="orderid"
-        ofType="com.jp.po.Book"
+        ofType="com.jp.po.BookCustom"
         select="com.jp.mapper.BookMapperCustom.selectByOrderid"
         fetchType="lazy">
         <id column="lsbn" property="lsbn" jdbcType="CHAR" />
@@ -33,6 +33,7 @@
 	    <result column="imageW" property="imagew" jdbcType="VARCHAR" />
 	    <result column="imageB" property="imageb" jdbcType="VARCHAR" />
 	    <result column="description" property="description" jdbcType="VARCHAR" />
+	    <result column="num" property="num" jdbcType="INTEGER" />
     </collection>
   </resultMap>
   
