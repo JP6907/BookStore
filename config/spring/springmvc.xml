@@ -1,13 +1,17 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
 		http://www.springframework.org/schema/mvc 
 		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd 
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+		http://www.springframework.org/schema/util
 		http://www.springframework.org/schema/aop 
 		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
 		http://www.springframework.org/schema/tx 
@@ -20,7 +24,28 @@
 	实际开发时使用mvc:annotation-driven
 	 -->
 	<!-- <mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven> -->
-	<mvc:annotation-driven ></mvc:annotation-driven>
+	<mvc:annotation-driven >
+	   	<!-- 设置不使用默认的消息转换器 -->
+        <mvc:message-converters register-defaults="false">
+        	<!-- 配置Spring的转换器 -->
+        	<bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+    		<bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter"/>
+    		<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+    		<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+            <!-- 配置fastjson中实现HttpMessageConverter接口的转换器 -->
+            <bean id="fastJsonHttpMessageConverter" 
+            	class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <!-- 加入支持的媒体类型：返回contentType -->
+                <property name="supportedMediaTypes">
+                    <list>
+                        <!-- 这里顺序不能反，一定先写text/html,不然ie下会出现下载提示 -->
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+	</mvc:annotation-driven>
 	<!-- 处理静态资源问题 -->
 	<mvc:default-servlet-handler />
 	<!-- 配置视图解析器 -->

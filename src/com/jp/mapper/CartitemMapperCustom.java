@@ -11,6 +11,8 @@ public interface CartitemMapperCustom {
     
 	public List<CartDetails> getByUserId(@Param("userid")Integer userid) throws Exception;
 	
+	public List<CartDetails> getByCartitemid(@Param("cartitemid")String[] cartitemid) throws Exception;
+	
 	public int insert(Cartitem record) throws Exception;
 	
 	public Cartitem selectByLsbn(@Param("lsbn")String lsbn) throws Exception;

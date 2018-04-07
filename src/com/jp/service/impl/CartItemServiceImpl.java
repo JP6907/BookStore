@@ -58,4 +58,10 @@ public class CartItemServiceImpl implements CartItemService{
 			deleteCartitemByCartitemid(Integer.parseInt(id));
 	}
 
+	@Override
+	public List<CartDetails> getCartItemByCartitemid(String[] cartitemid) throws Exception {
+		// TODO Auto-generated method stub
+		return cartitemMapperCustom.getByCartitemid(cartitemid);
+	}
+
 }

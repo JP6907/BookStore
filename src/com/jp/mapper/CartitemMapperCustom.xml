@@ -10,6 +10,18 @@
         and cartItem.userid = '${userid}'
   </select>
   
+  <select id="getByCartitemid" resultType="com.jp.po.CartDetails">
+        select cartItem.cartitemid,book.lsbn,book.name,book.currprice,
+        	book.imageb,cartItem.num,(cartItem.num*book.currprice)as total 
+        from cartItem,book 
+        where cartItem.lsbn = book.lsbn 
+        and cartItem.cartitemid in 
+        <foreach collection="cartitemid" item="id" index="index"  
+                         open="(" close=")" separator=",">  
+                    #{id}  
+        </foreach>  
+  </select>
+  
   <select id="selectByLsbn" parameterType="java.lang.Integer" 
         resultType="com.jp.po.Cartitem">
         select * from cartitem

@@ -1,6 +1,12 @@
 package com.jp.po;
 
-public class CartDetails{
+import java.io.Serializable;
+
+public class CartDetails implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int cartitemid;
 	String lsbn;
 	String name;
@@ -67,6 +73,13 @@ public class CartDetails{
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+	//必须为该格式，不然转化成JSON格式时会出现格式转化错误！！！
+	@Override
+	public String toString() {
+		return "{\"cartitemid\":\"" + cartitemid + "\", \"lsbn\":\"" + lsbn + "\", \"name\":\"" + name + "\", \"currprice\":\""
+				+ currprice + "\", \"num\":\"" + num + "\", \"imageb\":\"" + imageb + "\", \"total\":\"" + total + "\"}";
 	}
 
 	

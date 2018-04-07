@@ -225,6 +225,7 @@ function jiesuan() {
 	</table>  
 	</c:when>
 	<c:otherwise>
+	<form id="jieSuanForm" action="<c:url value='/order/createNewOrder'/>" method="post">
 <table width="95%" align="center" cellpadding="0" cellspacing="0">
 	<tr align="center" bgcolor="#efeae5">
 		<td align="left" width="50px">
@@ -245,12 +246,12 @@ function jiesuan() {
 	<c:choose>
 		<c:when test="${cartDetails.cartitemid eq selectCartitemid}">
 			<td align="left">
-			<input value="${cartDetails.cartitemid }" type="checkbox" name="checkboxBtn" checked/>
+			<input value="${cartDetails.cartitemid }" type="checkbox" name="cartitemid" id="cartitemid" checked/>
 			</td>
 		</c:when>
 		<c:otherwise>
 			<td align="left">
-			<input value="${cartDetails.cartitemid }" type="checkbox" name="checkboxBtn" />
+			<input value="${cartDetails.cartitemid }" type="checkbox" name="cartitemid" id="cartitemid"/>
 			</td>
 		</c:otherwise>
 	</c:choose>
@@ -288,7 +289,7 @@ function jiesuan() {
 		</td>
 	</tr>
 </table>
-	<form id="jieSuanForm" action="<c:url value='/CartItemServlet'/>" method="post">
+	
 		<input type="hidden" name="cartItemIds" id="cartItemIds"/>
 		<input type="hidden" name="total" id="hiddenTotal"/>
 		<input type="hidden" name="method" value="loadCartItems"/>
