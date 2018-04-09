@@ -35,7 +35,7 @@ $(function(){
     </ul>
      
     <div class="user">
-    <span>admin</span>
+    <span>您好，${admin.username }</span>
     </div>    
     
     </div>

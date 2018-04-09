@@ -17,6 +17,8 @@ public class User {
 
     private String phone;
 
+    private String identity;
+
     public Integer getUserid() {
         return userid;
     }
@@ -79,5 +81,13 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity == null ? null : identity.trim();
     }
 }

@@ -10,6 +10,7 @@
     <result column="addressCode" property="addresscode" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="identity" property="identity" jdbcType="CHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    userId, userName, loginName, password, address, addressCode, email, phone
+    userId, userName, loginName, password, address, addressCode, email, phone, identity
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jp.po.UserExample" >
     select
@@ -105,10 +106,12 @@
   <insert id="insert" parameterType="com.jp.po.User" >
     insert into user (userId, userName, loginName, 
       password, address, addressCode, 
-      email, phone)
+      email, phone, identity
+      )
     values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{loginname,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{addresscode,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR})
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{identity,jdbcType=CHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.jp.po.User" >
     insert into user
@@ -137,6 +140,9 @@
       <if test="phone != null" >
         phone,
       </if>
+      <if test="identity != null" >
+        identity,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
@@ -162,6 +168,9 @@
       </if>
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="identity != null" >
+        #{identity,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
@@ -198,6 +207,9 @@
       <if test="record.phone != null" >
         phone = #{record.phone,jdbcType=VARCHAR},
       </if>
+      <if test="record.identity != null" >
+        identity = #{record.identity,jdbcType=CHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +224,8 @@
       address = #{record.address,jdbcType=VARCHAR},
       addressCode = #{record.addresscode,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
-      phone = #{record.phone,jdbcType=VARCHAR}
+      phone = #{record.phone,jdbcType=VARCHAR},
+      identity = #{record.identity,jdbcType=CHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +254,9 @@
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="identity != null" >
+        identity = #{identity,jdbcType=CHAR},
+      </if>
     </set>
     where userId = #{userid,jdbcType=INTEGER}
   </update>
@@ -252,7 +268,8 @@
       address = #{address,jdbcType=VARCHAR},
       addressCode = #{addresscode,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR}
+      phone = #{phone,jdbcType=VARCHAR},
+      identity = #{identity,jdbcType=CHAR}
     where userId = #{userid,jdbcType=INTEGER}
   </update>
 </mapper>

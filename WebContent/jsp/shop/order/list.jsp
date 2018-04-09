@@ -92,13 +92,13 @@
 				(${order.status })
 			</td>
 			<td>
-			<a href="<c:url value='/OrderServlet?method=load&orderid=${order.orderid }'/>">查看</a><br/>
+			<a href="<c:url value='#'/>">查看</a><br/>
 <c:if test="${order.status eq '未付款' }">
-				<a href="<c:url value='/OrderServlet?method=paymentPre&orderid=${order.orderid }'/>">支付</a><br/>
-				<a href="<c:url value='/OrderServlet?method=load&orderid=${order.orderid }&btn=cancel'/>">取消</a><br/>						
+				<a href="<c:url value='#'/>">支付</a><br/>
+				<a href="<c:url value='#'/>">取消</a><br/>						
 </c:if>
 <c:if test="${order.status eq '已发货' }">
-				<a href="<c:url value='/OrderServlet?method=load&orderid=${order.orderid }&btn=confirm'/>">确认收货</a><br/>
+				<a href="<c:url value='#'/>">确认收货</a><br/>
 </c:if>
 			</td>
 		</tr>

@@ -12,6 +12,7 @@ import com.jp.mapper.BookMapper;
 import com.jp.mapper.BookMapperCustom;
 import com.jp.po.Book;
 import com.jp.po.BookCustom;
+import com.jp.po.User;
 import com.jp.service.BookService;
 import com.jp.utils.ImageUtils;
 import com.jp.utils.PageUtil;
@@ -25,22 +26,33 @@ public class BookServiceImpl implements BookService{
 	private BookMapper bookMapper;
 	
 	@Override
-	public List<BookCustom> getBookListByPage(Integer pageNum, Integer numPerPage) throws Exception {
+	public List<BookCustom> getBookListByPage(Integer pageNum, Integer numPerPage, User user) throws Exception {
 		//根据页号和每页数量计算起始点
 		int startNum = numPerPage*(pageNum-1);
-		return bookMapperCustom.getBookListLimit(startNum, numPerPage);
+		if(user==null){
+			user = new User();
+			user.setIdentity("admin");
+			user.setUserid(0);
+		}
+		return bookMapperCustom.getBookListLimit(user.getIdentity(),user.getUserid(),
+												startNum, numPerPage);
 	}
 
 	@Override
-	public int getBookTotalCount() throws Exception {
+	public int getBookTotalCount(User user) throws Exception {
 		// TODO Auto-generated method stub
-		return bookMapperCustom.getBookTotalCount();
+		if(user==null){
+			user = new User();
+			user.setIdentity("admin");
+			user.setUserid(0);
+		}
+		return bookMapperCustom.getBookTotalCount(user.getIdentity(),user.getUserid());
 	}
 
 	@Override
-	public int getBookPagetotalNum(int numPerPage) throws Exception {
+	public int getBookPagetotalNum(int numPerPage,User user) throws Exception {
 		// TODO Auto-generated method stub
-		 int total = this.getBookTotalCount();
+		 int total = this.getBookTotalCount(user);
 		 if(total%numPerPage==0){
 			 return total/numPerPage; 
 		 }else{

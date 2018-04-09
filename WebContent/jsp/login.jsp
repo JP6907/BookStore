@@ -50,7 +50,7 @@
     <div class="loginbox" style="margin-top:100px;">
     
     <ul>
-    <form action="${pageContext.request.contextPath}/admin/login" method="POST">
+    <form action="${pageContext.request.contextPath}/user/manageSystemLogin" method="POST">
     <li><input name="loginname" type="text" class="loginuser" value="admin"/></li>
     <li><input name="password" type="password" class="loginpwd" value="123456" /></li>
     <li><input  type="submit" class="loginbtn" value="登录" style="margin-left:100px;"/></li>

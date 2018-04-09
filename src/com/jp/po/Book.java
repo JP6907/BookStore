@@ -41,6 +41,10 @@ public class Book {
 
     private String description;
 
+    private String username;
+
+    private Integer userid;
+
     public String getLsbn() {
         return lsbn;
     }
@@ -201,13 +205,19 @@ public class Book {
         this.description = description == null ? null : description.trim();
     }
 
-	@Override
-	public String toString() {
-		return "Book [lsbn=" + lsbn + ", orderby=" + orderby + ", name=" + name + ", type=" + type + ", author="
-				+ author + ", price=" + price + ", currprice=" + currprice + ", discount=" + discount + ", press="
-				+ press + ", publishtime=" + publishtime + ", edition=" + edition + ", pagenum=" + pagenum
-				+ ", wordnum=" + wordnum + ", printtime=" + printtime + ", booksize=" + booksize + ", paper=" + paper
-				+ ", cid=" + cid + ", imagew=" + imagew + ", imageb=" + imageb + ", description=" + description + "]";
-	}
-    
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
 }

@@ -104,15 +104,15 @@
 			<span style="font-weight: 900; font-size: 15px;">合计金额：</span>
 			<span class="price_t">&yen;${order.total }</span><br/>
 <c:if test="${order.status eq '未付款' }">
-	<a href="<c:url value='/OrderServlet?method=paymentPre&oid=${order.orderid }'/>" class="pay"></a><br/>
+	<a href="<c:url value='#'/>" class="pay"></a><br/>
 </c:if>
 <%-- <c:if test="${order.status eq '未付款' and btn eq 'cancel'}"> --%>
 <c:if test="${order.status eq '未付款'}">
-    <a id="cancel" href="<c:url value='/OrderServlet?method=cancel&oid=${order.orderid }'/>">取消订单</a><br/>
+    <a id="cancel" href="<c:url value='#'/>">取消订单</a><br/>
 </c:if>
 <%-- <c:if test="${order.status eq '已发货' and btn eq 'confirm'}"> --%>
 <c:if test="${order.status eq '已发货'}">
-	<a id="confirm" href="<c:url value='/OrderServlet?method=confirm&oid=${order.orderid }'/>">确认收货</a><br/>
+	<a id="confirm" href="<c:url value='#'/>">确认收货</a><br/>
 </c:if>	
 		</div>
 	</div>

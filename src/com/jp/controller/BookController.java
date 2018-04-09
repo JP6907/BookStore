@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jp.po.BookCustom;
 import com.jp.po.TypeCustom;
+import com.jp.po.User;
 import com.jp.service.BookService;
 import com.jp.service.TypeService;
 import com.jp.utils.ImageUtils;
@@ -35,30 +37,35 @@ public class BookController {
 	
 	
 	 @RequestMapping("/toBookList")
-	    public String toBookInfoList(Model model, @Param("pageNumNow")Integer pageNumNow) throws Exception{
+	    public String toBookInfoList(Model model, @Param("pageNumNow")Integer pageNumNow,HttpSession session) throws Exception{
 		 	System.out.println("请求图书列表,页号:" + pageNumNow);
-		 	//默认获取第一页
-		 	int page = 1;
-		 	//总页码数
-		 	int pageNumTotal = bookService.getBookPagetotalNum(PageUtil.NumPerPageInBack);
-		 	//如果有指定页码
-		 	if(pageNumNow!=null){
-		 		page = pageNumNow>=1?pageNumNow:1;
-		 		page = page>pageNumTotal?pageNumTotal:page;
-		 	}
 		 	
-		 	//要显示的页码列表
-		 	List<Integer> pageList = PageUtil.getPageNumList(page, pageNumTotal);
-		 	model.addAttribute("pageNumTotal", pageNumTotal);  //总页书
-		 	model.addAttribute("pageList", pageList);  //要显示的页码列表
-		 	model.addAttribute("pageNumNow", page); //当前页码
-		 	System.out.println(page+"/" +pageNumTotal);
-		 	
-	        List<BookCustom> bookList = bookService.getBookListByPage(page, PageUtil.NumPerPageInBack);
-	        
-	        model.addAttribute("bookList" , bookList);
-	        
-	        return "book_list";
+		 	User user = (User)session.getAttribute("admin");
+		 	if(user!=null){
+			 	//默认获取第一页
+			 	int page = 1;
+			 	//总页码数
+			 	int pageNumTotal = bookService.getBookPagetotalNum(PageUtil.NumPerPageInBack,user);
+			 	//如果有指定页码
+			 	if(pageNumNow!=null){
+			 		page = pageNumNow>=1?pageNumNow:1;
+			 		page = page>pageNumTotal?pageNumTotal:page;
+			 	}
+			 	
+			 	//要显示的页码列表
+			 	List<Integer> pageList = PageUtil.getPageNumList(page, pageNumTotal);
+			 	model.addAttribute("pageNumTotal", pageNumTotal);  //总页书
+			 	model.addAttribute("pageList", pageList);  //要显示的页码列表
+			 	model.addAttribute("pageNumNow", page); //当前页码
+			 	System.out.println(page+"/" +pageNumTotal);
+			 	//需要根据用户身份来获取数据 管理员/普通用户
+		        List<BookCustom> bookList = bookService.getBookListByPage(page, PageUtil.NumPerPageInBack, user);
+		        
+		        model.addAttribute("bookList" , bookList);
+		        
+		        return "book_list";
+		 	}else
+		 		return "login";
 	    }
 	 //搜索书籍
 	 ///////////////

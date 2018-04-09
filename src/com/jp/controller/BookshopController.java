@@ -44,7 +44,7 @@ public class BookshopController {
 	 	//默认获取第一页
 	 	int page = 1;
 	 	//总页码数
-	 	int pageNumTotal = bookService.getBookPagetotalNum(PageUtil.NumPerPageInFront);
+	 	int pageNumTotal = bookService.getBookPagetotalNum(PageUtil.NumPerPageInFront,null);
 	 	//如果有指定页码
 	 	if(pageNumNow!=null){
 	 		page = pageNumNow>=1?pageNumNow:1;
@@ -58,7 +58,7 @@ public class BookshopController {
 	 	model.addAttribute("pageNumNow", page); //当前页码
 	 	System.out.println(page+"/" +pageNumTotal);
 	 	
-        List<BookCustom> bookList = bookService.getBookListByPage(page, PageUtil.NumPerPageInFront);
+        List<BookCustom> bookList = bookService.getBookListByPage(page, PageUtil.NumPerPageInFront,null);
         
         model.addAttribute("bookList" , bookList);
         

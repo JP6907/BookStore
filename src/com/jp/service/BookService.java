@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jp.po.BookCustom;
+import com.jp.po.User;
 
 public interface BookService {
 	/**
@@ -17,11 +18,11 @@ public interface BookService {
 	 * @return: List<BookCustom>      
 	 * @throws
 	 */
-	List<BookCustom> getBookListByPage(Integer pageNum,Integer numPerPage) throws Exception;
+	List<BookCustom> getBookListByPage(Integer pageNum,Integer numPerPage, User user) throws Exception;
 	//获取书的总数量
-	int getBookTotalCount() throws Exception;
+	int getBookTotalCount(User user) throws Exception;
 	//获取书的页数
-	int getBookPagetotalNum(int numPerPage) throws Exception;
+	int getBookPagetotalNum(int numPerPage,User user) throws Exception;
 	//添加书籍
 	void addBook(BookCustom bookCustom,MultipartFile image, String imagePath) throws Exception;
 	//删除书籍

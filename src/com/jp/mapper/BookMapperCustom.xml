@@ -45,11 +45,18 @@
   	
   	<select id="getBookListLimit" parameterType="java.lang.Integer" 
         resultType="com.jp.po.BookCustom">
-  		select * from book order by orderBy desc limit #{startNum},#{num} 
+  		select * from book 
+  		<if test="identity=='user'">
+  		    where userid = #{userid}
+		</if>
+  		order by orderBy desc limit #{startNum},#{num} 
   	</select>
   	
   	<select id="getBookTotalCount"  resultType="java.lang.Integer">
-  		select count(*) from book 
+  		select count(*) from book
+  		<if test="identity=='user'">
+  		    where userid = #{userid}
+		</if>
   	</select>
   	
   	<select id="selectByOrderid"  parameterType="java.lang.String"  resultType="com.jp.po.BookCustom">

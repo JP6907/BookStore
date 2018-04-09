@@ -122,7 +122,8 @@
 		                window.parent.showMessageBoxParent("success!", 2000);
 		                window.location = data.forwardUrl;
 		        	}
-		           /*  window.location.href="${pageContext.request.contextPath }/order/createNewOrderSubmit";
+		        }
+		            /* window.location.href="${pageContext.request.contextPath }/order/createNewOrderSubmit";
 		        },error:function(){  
 	                console.log("获取错误");
 	                alert("下单失败！");

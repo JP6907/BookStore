@@ -1,4 +1,5 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -49,14 +50,16 @@ $(function(){
     </div>
     <ul class="menuson">
         <li><cite></cite><a href="book/toBookList" target="rightFrame">书籍列表</a><i></i></li>
+        <c:if test="${identity eq 'admin'}">
         <li><cite></cite><a href="type/toTypeList" target="rightFrame">书籍类型</a><i></i></li>
+        </c:if>
         </ul>     
     </dd> 
     
-    
-    <dd><div class="title"><span><img src="jsp/images/leftico03.png" /></span>客户管理</div>
+    <c:if test="${identity eq 'admin'}">
+    <dd><div class="title"><span><img src="jsp/images/leftico03.png" /></span>用户管理</div>
     <ul class="menuson">
-        <li><cite></cite><a href="client/toClientList" target="rightFrame">客户信息列表</a><i></i></li>
+        <li><cite></cite><a href="client/toClientList" target="rightFrame">用户信息列表</a><i></i></li>
     </ul>    
     </dd>  
     
@@ -67,8 +70,9 @@ $(function(){
     </ul>
     
     </dd>   
+    </c:if>
     
-    <dd><div class="title"><span><img src="jsp/images/leftico04.png" /></span>新闻管理</div>
+    <!-- <dd><div class="title"><span><img src="jsp/images/leftico04.png" /></span>新闻管理</div>
     <ul class="menuson">
         <li><cite></cite><a href="news/toNewsPage" target="rightFrame">书籍资讯</a><i></i></li>
     </ul>
@@ -79,7 +83,7 @@ $(function(){
         <li><cite></cite><a href="bussiness/toBussinessList" target="rightFrame">商家信息</a><i></i></li>
     </ul>
     
-    </dd> 
+    </dd> --> 
        <dd><div class="title"><span><img src="jsp/images/leftico04.png" /></span>修改密码</div>
     <ul class="menuson">
         <li><cite></cite><a href="user/toModifPassPage" target="rightFrame">修改密码</a><i></i></li>
