@@ -104,7 +104,8 @@ public class BookController {
 	 @RequestMapping("/addBookSubmit")
 	public String addBookSubmit(HttpServletRequest request,
 								@Param("bookCustom")BookCustom bookCustom,
-								@RequestParam("image")MultipartFile image) 
+								@RequestParam("image")MultipartFile image,
+								HttpSession session) 
 								throws Exception{
 			 
 		System.out.println("添加书籍:");
@@ -113,6 +114,10 @@ public class BookController {
 		//计算折扣
 		double discount = ((double)Math.round(currPrice/price*100)/100) * 10;
 		bookCustom.setDiscount(discount); //计算折扣
+		User user = (User)session.getAttribute("admin");
+		//添加书籍发布者信息
+		bookCustom.setUserid(user.getUserid());
+		bookCustom.setUsername((user.getIdentity().equals("admin")?("自营"):user.getUsername()));
 		
 		System.out.println(bookCustom);
 		//文件保存路径

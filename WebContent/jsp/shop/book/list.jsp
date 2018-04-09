@@ -98,7 +98,7 @@
 				<span>出 版 社：</span><a href="${pressUrl }">${book.press }</a>
 			</p>
 			<p class="publishing_time"><span>出版时间：</span>${book.publishtime }</p>
-			<p class="price_s"><span>发布者： 自营</span></p>
+			<p class="price_s"><span>发布者： ${book.username }</span></p>
 		  </div>
 		  </li>
 		</c:forEach>
