@@ -52,7 +52,7 @@ public class TypeController {
         
         model.addAttribute("typeList" , typeList);
         
-        return "book_type_list";
+        return "back/book/book_type_list";
     }
 
 //	//获取图书详情

@@ -63,7 +63,7 @@ public class BookController {
 		        
 		        model.addAttribute("bookList" , bookList);
 		        
-		        return "book_list";
+		        return "back/book/book_list";
 		 	}else
 		 		return "login";
 	    }
@@ -97,7 +97,7 @@ public class BookController {
 		List<TypeCustom> typeList = typeService.getTypeList(null, null);
 		model.addAttribute("typeList", typeList);
 		 
-		return "book_add";
+		return "back/book/book_add";
 	 }
 		 
 	//添加书籍提交
@@ -140,7 +140,7 @@ public class BookController {
 		List<TypeCustom> typeList = typeService.getTypeList(null, null);
 		model.addAttribute("typeList", typeList);
 		 
-		 return "book_modify"; 
+		 return "back/book/book_modify"; 
 	 }
 	 
 	 //修改书籍提交
@@ -165,7 +165,7 @@ public class BookController {
 		
 		model.addAttribute("bookCustom", bookCustom);
 		 
-		return "book_modify"; 
+		return "back/book/book_modify"; 
 	 }
 	 
 	 //删除书籍

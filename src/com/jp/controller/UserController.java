@@ -96,7 +96,7 @@ public class UserController {
 		
 		System.out.println("修改密码......");
 		
-		return "modifyPass";
+		return "back/user/modifyPass";
 	}
 	
 	@RequestMapping(value="/modifyPasswordSubmit")
