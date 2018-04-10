@@ -35,11 +35,13 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	/**
-	 * userid 为 null时获取全部用户
+	 * 根据userid或username或loginname获取用户
+	 * 条件： ==userid / like username /like loginname
+	 * userid_username_loginname为空时获取全部用户
 	 */
-	public List<User> getUserList(Integer userid) throws Exception {
+	public List<User> getUserList(String userid_username_loginname) throws Exception {
 		// TODO Auto-generated method stub
-		return userMapperCustom.getUserList(userid);
+		return userMapperCustom.getUserList(userid_username_loginname);
 	}
 
 }

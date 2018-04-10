@@ -12,12 +12,16 @@
       where loginname = #{loginname}
   </update>
   
-  <select id="getUserList" parameterType="java.lang.Integer" 
+  <select id="getUserList" parameterType="java.lang.String" 
         resultType="com.jp.po.User">
   		select * from user 
-  		<if test="userid!=null and userid!=''">
-            where userid = #{userid}
-        </if>
+  		<where>
+	        <if test="value!=null and value!=''">
+	            userid = '${value}' 
+	            or username LIKE '%${value}%'
+	            or loginname LIKE '%${value}%'
+	        </if>
+  		</where>
   	</select>
   
 </mapper>

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -137,7 +138,19 @@ public class UserController {
 	@RequestMapping(value="/toUserList")
 	public String toUserList(Model model) throws Exception{
 		//获取全部用户
+		System.out.println("获取用户列表");
 		List<User> userList = userService.getUserList(null);
+		model.addAttribute("userList", userList);
+		
+		return "back/user/user_list";
+	}
+	
+	@RequestMapping(value="/queryUser")
+	public String queryUser(Model model,
+				@Param("username_loginname")String username_loginname) throws Exception{
+		//根据条件获取用户
+		System.out.println("查询用户：" + username_loginname);
+		List<User> userList = userService.getUserList(username_loginname);
 		model.addAttribute("userList", userList);
 		
 		return "back/user/user_list";

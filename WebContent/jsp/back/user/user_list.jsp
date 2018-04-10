@@ -31,12 +31,12 @@
      <div class="tools">
     
   
-    <form action="${pageContext.request.contextPath}/user/queryuser" id="searchForm" method="POST">
+    <form action="${pageContext.request.contextPath}/user/queryUser" id="searchForm" method="POST">
     	<table>
     		<tr>
     			<td>
     				<li><label>综合查询</label>
-    				<input name="lsbn_name_type" id="lsbn_name_type" type="text" class="scinput" placeholder="账号/用户名"/>
+    				<input name="username_loginname" id="username_loginname" type="text" class="scinput" placeholder="账号/用户名"/>
     				</li>
     			</td>
     			<td>&nbsp;&nbsp;</td>
@@ -65,8 +65,8 @@
         <th style="text-align:center">邮箱</th>
         <th style="text-align:center">手机号码</th>
         <th style="text-align:center">权限</th>
-        <th style="text-align:center">&nbsp;</th>
-        <th style="text-align:center">&nbsp;</th>
+        <!-- <th style="text-align:center">&nbsp;</th>
+        <th style="text-align:center">&nbsp;</th> -->
         </tr>
         </thead>
         <tbody id="tbody">
@@ -74,7 +74,8 @@
        <c:forEach items="${userList}" var="user" varStatus="vs">
                 <c:set var="index" value="${index+1}" />
           <tr style="text-align:center" >
-          	<td><input type="checkbox" name="userid" value="${user.userid }"/></td>
+          	<%-- <td><input type="checkbox" name="userid" value="${user.userid }"/></td> --%>
+          	<td>${index}</td>
           	<td>${user.username }</td>
 	        <td>${user.loginname }</td>
 	        <td>
@@ -91,8 +92,8 @@
 	        <td>${user.email }</td>
 	         <td>${user.phone}</td>
 	         <td>${user.identity}</td>
-	         <td><a href="#" style="color:#4876FF;">修改</a></td>
-	         <td><a href="#" style="color:#6495ED;">删除</a></td>
+	         <!-- <td><a href="#" style="color:#4876FF;">修改</a></td>
+	         <td><a href="#" style="color:#6495ED;">删除</a></td> -->
         </tr>
         </c:forEach>
         </tbody>
