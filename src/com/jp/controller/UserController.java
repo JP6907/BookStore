@@ -2,6 +2,7 @@ package com.jp.controller;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -132,6 +133,14 @@ public class UserController {
             e.printStackTrace();
         }
         return;
+	}
+	@RequestMapping(value="/toUserList")
+	public String toUserList(Model model) throws Exception{
+		//获取全部用户
+		List<User> userList = userService.getUserList(null);
+		model.addAttribute("userList", userList);
+		
+		return "back/user/user_list";
 	}
 	
 	

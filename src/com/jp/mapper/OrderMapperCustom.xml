@@ -6,6 +6,7 @@
     <result column="orderid" property="orderid" jdbcType="VARCHAR" />
     <result column="ordertime" property="ordertime" jdbcType="TIMESTAMP" />
     <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="CHAR" />
     <result column="total" property="total" jdbcType="DOUBLE" />
     <result column="address" property="address" jdbcType="VARCHAR" />
@@ -42,8 +43,18 @@
     where orderid = #{orderid}
   </select>
   
-  <select id="selectOrdersByUserid" resultMap="OrderResultMap" parameterType="java.lang.String" >
+  <select id="selectOrdersByUserid" resultMap="OrderResultMap" parameterType="java.lang.Integer" >
     select * from orders
-    where userid = #{userid}
+    <if test="userid!=null and userid!=''">
+    	where userid = #{userid}
+   	</if>
+   	order by ordertime desc
+  </select>
+  
+  <select id="selectOrdersReceiveByUserid" resultMap="OrderResultMap" parameterType="java.lang.Integer" >
+   		select distinct orders.orderid,orders.ordertime,orders.status,orders.total,orders.username 
+   		from orders,orderitem,book 
+   		where book.lsbn=orderitem.lsbn and orders.orderid=orderitem.orderid 
+   		and book.userid=#{userid};
   </select>
 </mapper>

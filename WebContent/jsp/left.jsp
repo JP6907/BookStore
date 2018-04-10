@@ -59,17 +59,26 @@ $(function(){
     <c:if test="${identity eq 'admin'}">
     <dd><div class="title"><span><img src="jsp/images/leftico03.png" /></span>用户管理</div>
     <ul class="menuson">
-        <li><cite></cite><a href="client/toClientList" target="rightFrame">用户信息列表</a><i></i></li>
+        <li><cite></cite><a href="user/toUserList" target="rightFrame">用户信息列表</a><i></i></li>
     </ul>    
     </dd>  
     
     
     <dd><div class="title"><span><img src="jsp/images/leftico04.png" /></span>订单管理</div>
     <ul class="menuson">
-        <li><cite></cite><a href="appoint/toAppointPage" target="rightFrame">订单信息列表</a><i></i></li>
+        <li><cite></cite><a href="order/toOrderListInback" target="rightFrame">订单信息列表</a><i></i></li>
     </ul>
     
     </dd>   
+    </c:if>
+    
+    <c:if test="${identity eq 'user'}">
+    <dd><div class="title"><span><img src="jsp/images/leftico03.png" /></span>订单管理</div>
+    <ul class="menuson">
+        <li><cite></cite><a href="order/toOrderListInback" target="rightFrame">我的订单</a><i></i></li>
+        <li><cite></cite><a href="order/toOrderReceiveListInback" target="rightFrame">收到的订单</a><i></i></li>
+    </ul>    
+    </dd>  
     </c:if>
     
     <!-- <dd><div class="title"><span><img src="jsp/images/leftico04.png" /></span>新闻管理</div>

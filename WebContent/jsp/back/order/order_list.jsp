@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -23,23 +24,33 @@
     <span>位置：</span>
     <ul class="placeul">
     <li><a href="#">首页</a></li>
-    <li><a href="#">客户列表</a></li>
+    <li><a href="#">订单列表</a></li>
     </ul>
     </div>
 
+	<c:if test="${identity eq 'admin'}">
      <div class="tools">
-    
     	  <ul class="seachform">
-    <form action="client/toModPage" method="POST">
-		    <li><label>综合查询</label><input name="clientId" id="clientId" type="text" class="scinput" /></li>
-		    <li><label>&nbsp;</label><input  type="button" class="scbtn" id="sel" value="查询信息"/></li>
-		    <li><label>&nbsp;</label><input  type="submit" class="scbtn" id="mod"value="修改信息"/></li>
-            <li><label>&nbsp;</label><input  type="button" class="scbtn" id="add" value="增加信息"/></li>
-            <li><label>&nbsp;</label><input  type="button" class="scbtn" id="del"value="删除信息"/></li>
-		    </ul>
-    </form>
-        
+    
+	    <form action="order/toModPage" method="POST">
+			    <li><label>订单号</label><input name="orderId" id="orderId" type="text" class="scinput" /></li>
+	             <li><label>订单类型</label>
+	                <select id="orderStatus" name="orderStatus" class="scinput">
+	                <option value="等待付款">全部</option>
+	                <option value="等待付款">等待付款</option>
+	                <option value="准备发货">准备发货</option>
+	                <option value="等待确认">等待确认</option>
+	                <option value="交易成功">交易成功</option>
+	                <option value="已取消">已取消</option>
+	                <!-- <option value="未处理">未处理</option>
+	                <option value="已处理">已处理</option> -->
+	                </select>
+	             </li>
+			    <li><label>&nbsp;</label><input  type="button" class="scbtn" id="sel" value="查询订单"/></li>
+			    </ul>
+	    </form>        
     </div>
+    </c:if>
     
   
     
@@ -47,26 +58,24 @@
     <table class="tablelist">
     	<thead>
     	<tr style="text-align:center">
-        <th style="text-align:center">编号</th>
-        <th style="text-align:center">姓名</th>
-        <th style="text-align:center">电话</th>
-         <th style="text-align:center">Email</th>
-        <th style="text-align:center">地址</th>
-        <th style="text-align:center">邮编</th>
+        <th style="text-align:center">订单号</th>
+        <th style="text-align:center">订单时间</th>
+        <th style="text-align:center">订单状态</th>
+        <th style="text-align:center">总金额</th>
+        <th style="text-align:center">下单者</th>
         </tr>
         </thead>
         <tbody id="tbody">
         
-       <c:forEach items="${list}" var="client" varStatus="vs">
+       <c:forEach items="${orderList}" var="order" varStatus="vs">
                 <c:set var="index" value="${index+1}" />
           <tr style="text-align:center">
-        <td>${client.clientId }</td>
-        <td>${client.clientName }</td>
-        <td>${client.clientPhone }</td>
-         <td>${client.clientEmail}</td>
-         <td>${client.clientAddress}</td>
-         <td>${client.clientAddressCode}</td>
-        </tr>
+                    <td>${order.orderid }</td>
+                    <td><fmt:formatDate value='${order.ordertime }' type='date' pattern='yyyy年MM月dd HH:mm:ss'/></td>
+                    <td>${order.status  }</td>
+                    <td>${order.total  }</td>
+                    <td>${order.username }</td>
+                </tr>
         </c:forEach>
         </tbody>
         <tfoot>
@@ -76,21 +85,11 @@
         </tfoot>
        
     </table>
+    <input type="hidden" id="count" value="${count }"/>
     <script type="text/javascript">
     $(function(){
     	
-        $("#add").on('click',function(){
-            
-            layer.open({
-                type: 2,
-                area: ['700px', '530px'],
-                fixed: false, //不固定
-                maxmin: true,
-                content: 'jsp/client_add.jsp'
-              });
-            
-            
-        });
+  
     	
     	
     });
@@ -109,7 +108,7 @@
     		
     	  laypage({
     		    cont: 'demo7'
-    		    ,pages:2
+    		    ,pages:$("#count").val()
     		    ,skip: true
     		    ,jump: function(obj, first){
     		    	layer.msg('数据加载中', {
@@ -133,9 +132,11 @@
         function toLimitit(tag){
             $.ajax({
                   type:"POST",
-                  url: "client/toTargetClientPage",
+                  url: "order/toTargetorderPage",
                   ansyc:false,
                   data:{Page:tag,
+                	  orderStatus:$("#orderStatus").val()
+                 
                   },
                   dataType:"json",
                   contentType:"application/x-www-form-urlencoded;charset=utf-8",
@@ -145,35 +146,33 @@
                       for(var i=0;i<data.list.length;i++)
                         {  
                            $("#tbody").append('<tr style=text-align:center id='+i+'>'); 
-                           $("#"+i).append('<td>'+data.list[i].clientId+'</td>');
-                           $("#"+i).append('<td>'+data.list[i].clientName +'</td>');
-                           $("#"+i).append('<td>'+data.list[i].clientPhone +'</td>');
-                           $("#"+i).append('<td>'+data.list[i].clientEmail +'</td>');
-                           $("#"+i).append('<td>'+data.list[i].clientAddress +'</td>');
-                           $("#"+i).append('<td>'+data.list[i].clientAddressCode +'</td></tr>');
+                           $("#"+i).append('<td>'+data.list[i].orderId+'</td>');
+                           $("#"+i).append('<td>'+data.list[i].orderTime +'</td>');
+                           $("#"+i).append('<td>'+data.list[i].orderStatus +'</td>');
+                           $("#"+i).append('<td>'+data.list[i].orderAssment +'</td>');
+                           $("#"+i).append('<td>'+data.list[i].orderDelivery +'</td></tr>');
                         }
                   }
            }); 
        } 
         $("#sel").on('click',function(){
-      		var clientId=$("#clientId").val();
-      		//alert("编号"+clientId);
-      	//alert("客户信息"+clientIsbn);
+        	var orderId=$("#orderId").val();
+        	//alert(orderId);
      		 $.ajax({
    		       type:"POST",
    		       ansyc:false,
-   		       url: "client/getSignalClientByIsbn",
-   		       data:{clientId:clientId
+   		       url: "order/getSignalorder",
+   		       data:{orderId:orderId
    		       },
    		       dataType:"json",
    		       contentType:"application/x-www-form-urlencoded;charset=utf-8",
    		       success:function(data){
-   		    	   var info="编号:"+data.client.clientId+"<br>";
-   		    	   info=info+"姓名:"+data.client.clientName+"<br>";
-   		    	   info=info+"联系电话:"+data.client.clientPhone+"<br>";
-   		    	   info=info+"邮箱:"+data.client.clientEmail+"<br>";
-   		    	   info=info+"地址:"+data.client.clientAddress+"<br>";
-   		    	   info=info+"邮编:"+data.client.clientAddressCode+"<br>";
+   		    	   var info="订单号:"+data.order.orderId+"<br>";
+   		    	info=info+"客户名:"+data.order.client.clientName+"<br>";
+   		    	info=info+"客户编号:"+data.order.client.clientId+"<br>";
+   		    	info=info+"书籍名:"+data.order.bookInfo.bookName+"<br>";
+   		    	info=info+"下单时间:"+data.order.orderTime+"<br>";
+   		    	info=info+"订单状态:"+data.order.orderStatus+"<br>";
    		    	   layer.open({
    		    		   type: 0,
    		    		   shade: false,
@@ -182,16 +181,16 @@
    		    		 });
    		       }
    		});
-      	});
+      	}); 
     	$("#del").on('click',function(){
-    		var clientId=$("#clientId").val();
+    		var orderId=$("#orderId").val();
     		layer.confirm('是否删除该条信息？', {
     			  btn: ['是','否'] //按钮
     			}, function(){
     				 $.ajax({
     				       type:"POST",
-    				       url: "client/delClientByIsbn",
-    				       data:{clientId:clientId
+    				       url: "order/delorderByIsbn",
+    				       data:{orderId:orderId
     				       },
     				       dataType:"json",
     				       contentType:"application/x-www-form-urlencoded;charset=utf-8",
@@ -210,7 +209,7 @@
     				}); 
     			
     			});
-    	});
+    	}); 
      });
 	</script>
     

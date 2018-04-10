@@ -53,7 +53,7 @@
 	<div class="divOrder">
 		<span>订单号：${order.orderid }
 			(${order.status})
-		　　　下单时间：${order.ordertime }</span>
+		　　　下单时间：<fmt:formatDate value='${order.ordertime }' type='date' pattern='yyyy年MM月dd HH:mm:ss'/></span>
 	</div>
 	<div class="divContent">
 		<div class="div2">

@@ -56,7 +56,7 @@ public class OrderController {
 	}
 	
 	/**
-	 * 获取订单列表
+	 * 前台获取订单列表
 	 * @Description: TODO(这里用一句话描述这个方法的作用)   
 	 * @param: @param model
 	 * @param: @param session
@@ -68,10 +68,10 @@ public class OrderController {
 	@RequestMapping("/toOrderList")
 	private String toOrderList(Model model,HttpSession session) throws Exception{
 		
-		System.out.println("获取订单列表");
+		System.out.println("前台获取订单列表");
 	 	User user = (User)session.getAttribute("user");
 	 	if(user!=null){
-			List<OrderCustom> orderList = orderService.selectOrdersByUserid(user.getUserid()+"");  
+			List<OrderCustom> orderList = orderService.selectOrdersByUser(user);  
 			
 	        model.addAttribute("orderList" , orderList);
 	        
@@ -80,11 +80,20 @@ public class OrderController {
 	 		return "login";
 	 	}
 	}
-	
+	/**
+	 * 获取订单详情
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param: @param model
+	 * @param: @param orderid
+	 * @param: @return
+	 * @param: @throws Exception      
+	 * @return: String      
+	 * @throws
+	 */
 	@RequestMapping("/getOrderItems")
 	private String getOrderItems(Model model,@Param("orderid")String orderid) throws Exception{
 		
-		System.out.println("获取订单详情");
+		System.out.println("前台获取订单详情");
 	 	
 		OrderCustom order = orderService.selectByOrderid(orderid);  
 		
@@ -97,7 +106,16 @@ public class OrderController {
 	        
 	    return "shop/order/desc";
 	}
-	
+	/**
+	 * 购物车勾选商品创建新订单
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param: @param model
+	 * @param: @param request
+	 * @param: @return
+	 * @param: @throws Exception      
+	 * @return: String      
+	 * @throws
+	 */
 	@RequestMapping("/createNewOrder")
 	private String createNewOrder(Model model,HttpServletRequest request) throws Exception{
 		
@@ -122,6 +140,18 @@ public class OrderController {
 	        
 	    return "shop/cart/list";
 	}
+	/**
+	 * 创建订单提交
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param: @param model
+	 * @param: @param session
+	 * @param: @param map
+	 * @param: @param request
+	 * @param: @param pw
+	 * @param: @throws Exception      
+	 * @return: void      
+	 * @throws
+	 */
 	@RequestMapping(value="/createNewOrderSubmit",
 			method = RequestMethod.POST, consumes = "application/json")
 	@ResponseBody
@@ -141,6 +171,7 @@ public class OrderController {
 			order.setOrderid(OrderUtil.createOrderId());
 			order.setOrdertime(new Date());
 			order.setUserid(user.getUserid());
+			order.setUsername(user.getUsername());
 			order.setStatus("未付款");
 			order.setAddress(map.get("address").toString());
 			order.setTotal(Double.parseDouble(map.get("total").toString()));
@@ -161,4 +192,60 @@ public class OrderController {
         }
 	}
 	
+	//前台部分
+	/////**************************************////////
+	//后台部分
+	
+	/**
+	 * 前台获取订单列表
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param: @param model
+	 * @param: @param session
+	 * @param: @return
+	 * @param: @throws Exception      
+	 * @return: String      
+	 * @throws
+	 */
+	@RequestMapping("/toOrderListInback")
+	private String toOrderListInback(Model model,HttpSession session) throws Exception{
+		
+		System.out.println("后台获取订单列表");
+	 	User user = (User)session.getAttribute("admin");
+	 	if(user!=null){
+			List<OrderCustom> orderList = orderService.selectOrdersByUser(user);  
+			
+			model.addAttribute("identity" , user.getIdentity());
+	        model.addAttribute("orderList" , orderList);
+	        
+			return "back/order/order_list";
+	 	}else{
+	 		return "login";
+	 	}
+	}
+	/**
+	 * 用户收到的订单
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param: @param model
+	 * @param: @param session
+	 * @param: @return
+	 * @param: @throws Exception      
+	 * @return: String      
+	 * @throws
+	 */
+	@RequestMapping("/toOrderReceiveListInback")
+	private String toOrderReceiveListInback(Model model,HttpSession session) throws Exception{
+		
+		System.out.println("后台获取用户收到的订单列表");
+	 	User user = (User)session.getAttribute("admin");
+	 	if(user!=null){
+			List<OrderCustom> orderList = orderService.selectOrdersReceiveByUserid(user.getUserid());
+			
+			model.addAttribute("identity" , user.getIdentity());
+	        model.addAttribute("orderList" , orderList);
+	        
+			return "back/order/order_list";
+	 	}else{
+	 		return "login";
+	 	}
+	}
 }

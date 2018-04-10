@@ -12,6 +12,7 @@ import com.jp.po.CartDetails;
 import com.jp.po.OrderCustom;
 import com.jp.po.Orderitem;
 import com.jp.po.Orders;
+import com.jp.po.User;
 import com.jp.service.OrderService;
 
 
@@ -36,11 +37,22 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 		return orderMapperCustom.selectByOrderid(orderid);
 	}
-
 	@Override
-	public List<OrderCustom> selectOrdersByUserid(String userid) throws Exception {
+	/**
+	 * userid为空时获取全部数据
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param: @param userid
+	 * @param: @return
+	 * @param: @throws Exception      
+	 * @return: List<OrderCustom>      
+	 * @throws
+	 */
+	public List<OrderCustom> selectOrdersByUser(User user) throws Exception {
 		// TODO Auto-generated method stub
-		return orderMapperCustom.selectOrdersByUserid(userid);
+		if(user.getIdentity().equals("admin"))
+			return orderMapperCustom.selectOrdersByUserid(null);
+		else
+			return orderMapperCustom.selectOrdersByUserid(user.getUserid());
 	}
 
 	@Override
@@ -53,6 +65,15 @@ public class OrderServiceImpl implements OrderService {
 			item.setNum(cartDetails.getNum());
 			orderitemMapper.insert(item);
 		}
+	}
+
+	@Override
+	/**
+	 * 获取用户收到的订单
+	 */
+	public List<OrderCustom> selectOrdersReceiveByUserid(Integer userid) throws Exception {
+		// TODO Auto-generated method stub
+		return orderMapperCustom.selectOrdersReceiveByUserid(userid);
 	}
 
 }

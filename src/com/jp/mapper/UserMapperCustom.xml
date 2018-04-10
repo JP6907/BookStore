@@ -11,4 +11,13 @@
       update user set password = #{newPassword}
       where loginname = #{loginname}
   </update>
+  
+  <select id="getUserList" parameterType="java.lang.Integer" 
+        resultType="com.jp.po.User">
+  		select * from user 
+  		<if test="userid!=null and userid!=''">
+            where userid = #{userid}
+        </if>
+  	</select>
+  
 </mapper>

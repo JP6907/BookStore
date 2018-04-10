@@ -68,7 +68,7 @@
 
 		<tr class="tt">
 			<td width="320px">订单号：<a  href="<c:url value='/order/getOrderItems?orderid=${order.orderid }'/>">${order.orderid }</a></td>
-			<td width="200px">下单时间：${order.ordertime }</td>
+			<td width="200px">下单时间：<fmt:formatDate value='${order.ordertime }' type='date' pattern='yyyy年MM月dd HH:mm:ss'/></td>
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>

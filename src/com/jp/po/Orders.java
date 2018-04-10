@@ -2,14 +2,19 @@ package com.jp.po;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Orders {
     private Integer id;
 
     private String orderid;
-
+    
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date ordertime;
 
     private Integer userid;
+
+    private String username;
 
     private String status;
 
@@ -47,6 +52,14 @@ public class Orders {
 
     public void setUserid(Integer userid) {
         this.userid = userid;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
     public String getStatus() {
