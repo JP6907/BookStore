@@ -16,4 +16,6 @@ public interface CartItemService {
 	public void deleteCartitemByCartitemid(Integer cartitemid) throws Exception;
 	
 	public void batchDeleteCartitem(String cartitemids) throws Exception;
+	
+	public boolean updateQuantity(Integer cartitemid,Integer num) throws Exception;
 }

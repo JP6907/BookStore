@@ -64,4 +64,20 @@ public class CartItemServiceImpl implements CartItemService{
 		return cartitemMapperCustom.getByCartitemid(cartitemid);
 	}
 
+	@Override
+	/**
+	 * 修改购物车中图书数量
+	 */
+	public boolean updateQuantity(Integer cartitemid, Integer num) throws Exception {
+		// TODO Auto-generated method stub
+		if(num==0)
+			return cartitemMapper.deleteByPrimaryKey(cartitemid)>0?true:false;
+		else{
+			Cartitem cartitem = new Cartitem();
+			cartitem.setCartitemid(cartitemid);
+			cartitem.setNum(num);
+			return cartitemMapper.updateByPrimaryKeySelective(cartitem)>0?true:false;
+		}
+	}
+
 }

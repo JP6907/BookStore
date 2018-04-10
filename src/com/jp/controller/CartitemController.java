@@ -1,19 +1,25 @@
 package com.jp.controller;
 
-
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;	
 
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jp.po.CartDetails;
 import com.jp.po.User;
 import com.jp.service.CartItemService;
@@ -94,5 +100,36 @@ public class CartitemController {
 		System.out.println("cartitemids:" + cartitemids);
 		cartItemService.batchDeleteCartitem(cartitemids);
 		return "forward:/cartitem/getCartitem";
+	}
+	
+	@RequestMapping(value="/updateQuantity",
+			method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	private void updateQuantity(Model model,HttpSession session,
+			@RequestBody Map<String,Object> map,HttpServletRequest request,
+			PrintWriter pw) throws Exception{
+		
+		System.out.println("更新购物车中图书数量");
+		boolean flag = false;
+		User user = (User)session.getAttribute("user");
+		if(user!=null){
+			int cartitemid = Integer.parseInt(map.get("cartitemid").toString());
+			int quantity = Integer.parseInt(map.get("quantity").toString());
+			System.out.println("cartitemid:" + cartitemid);
+			System.out.println("Quantity:" + quantity);			
+			flag = cartItemService.updateQuantity(cartitemid, quantity);
+		}
+		Map<String,Object> mapout=new HashMap<String,Object>();
+		mapout.put("flag" , flag);
+        ObjectMapper om=new ObjectMapper();
+        try{
+            String jsonString =om.writeValueAsString(mapout);
+            pw.write(jsonString);
+            pw.flush();
+            pw.close();
+        }catch(JsonProcessingException e){
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
 }

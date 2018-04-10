@@ -2,6 +2,13 @@ package com.jp.po;
 
 import java.io.Serializable;
 
+/**
+ * 购物车列表显示的数据
+ * @ClassName:  CartDetails   
+ * @Description:TODO(Description)   
+ * @author      ZJP
+ * @date:2018年4月10日 下午8:48:25
+ */
 public class CartDetails implements Serializable{
 	/**
 	 * 
