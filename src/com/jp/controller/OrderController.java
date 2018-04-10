@@ -1,6 +1,8 @@
 package com.jp.controller;
 
+import java.io.PrintWriter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jp.po.BookCustom;
 import com.jp.po.CartDetails;
 import com.jp.po.OrderCustom;
@@ -121,10 +125,12 @@ public class OrderController {
 	@RequestMapping(value="/createNewOrderSubmit",
 			method = RequestMethod.POST, consumes = "application/json")
 	@ResponseBody
-	private String createNewOrderSubmit(Model model,HttpSession session,
-			@RequestBody Map<String,Object> map,HttpServletRequest request) throws Exception{
+	private void createNewOrderSubmit(Model model,HttpSession session,
+			@RequestBody Map<String,Object> map,HttpServletRequest request,
+			PrintWriter pw) throws Exception{
 		
 		System.out.println("创建新订单提交");
+		boolean flag = false;
 		User user = (User)session.getAttribute("user");
 		if(user!=null){
 			System.out.println("total:" + map.get("total"));
@@ -139,11 +145,20 @@ public class OrderController {
 			order.setAddress(map.get("address").toString());
 			order.setTotal(Double.parseDouble(map.get("total").toString()));
 			orderService.createNewOrder(order, cartDetailslist);
-
-			return "forward:/order/toOrderList";
-		}else{
-			return "login";
+			flag = true;
 		}
+		Map<String,Object> mapout=new HashMap<String,Object>();
+		mapout.put("flag" , flag);
+        ObjectMapper om=new ObjectMapper();
+        try{
+            String jsonString =om.writeValueAsString(mapout);
+            pw.write(jsonString);
+            pw.flush();
+            pw.close();
+        }catch(JsonProcessingException e){
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
 	
 }

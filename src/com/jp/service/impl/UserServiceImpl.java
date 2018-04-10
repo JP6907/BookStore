@@ -23,4 +23,12 @@ public class UserServiceImpl implements UserService{
 		return userMapperCustom.selectByLoginnameAndPassword(loginname, password);
 	}
 
+	@Override
+	public boolean modifyPassword(String loginname, String newPassword) throws Exception {
+		// TODO Auto-generated method stub
+		boolean flag = false;
+		flag = userMapperCustom.updatePasswordByLoginname(loginname, newPassword);
+		return flag;
+	}
+
 }

@@ -11,4 +11,6 @@ import com.jp.po.User;
 public interface UserService {
 	
 	public User login(String loginname,String password) throws Exception;
+	
+	public boolean modifyPassword(String loginname,String newPassword) throws Exception;
 }

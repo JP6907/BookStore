@@ -6,4 +6,9 @@
   		select * from user 
   		WHERE loginname = '${loginname}' AND password = '${password}'
   	</select>
+  	
+  <update id="updatePasswordByLoginname" parameterType="java.lang.String">
+      update user set password = #{newPassword}
+      where loginname = #{loginname}
+  </update>
 </mapper>

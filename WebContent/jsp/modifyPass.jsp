@@ -24,11 +24,11 @@
 		<div class="public-nav">您当前的位置：<a href="">修改密码</a>></div>
 		<div class="public-content">
 			<div class="public-content-cont">
-			<form action="user/modifyUserPass" id="modForm" method="post">
+			<form action="user/modifyPasswordSubmit" id="modForm" method="post">
 			
 				<div class="form-group">
 					<label for="">账号</label>
-					<input class="form-input-txt" type="text" name="account" id="account" value="" />
+					<input class="form-input-txt" type="text" name="account" id="account" value="${admin.loginname }" />
 				</div>
                  <div class="form-group">
                     <label for="">密码</label>
@@ -56,30 +56,37 @@ $(function(){
 	
 	$("#modify").on("click",function(){
 	    if($("#account").val()==""||$("#account").val()==null){
-	    	layer.tips('账号不能为空', '#account');
+	    	debugger;
+	    	//layer.tips('账号不能为空', '#account');
+	    	alert('账号不能为空');
 	    	return false;
 	    }
 		if($("#password").val()==""||$("#password").val()==null){
-			layer.tips('密码不能为空', '#password');
+			//layer.tips('密码不能为空', '#password');
+			alert('密码不能为空');
 	    	return false;
 	    }
 		if($("#new_password").val()==""||$("#new_password").val()==null){
-			layer.tips('新密码不能为空', '#new_password');
+			//layer.tips('新密码不能为空', '#new_password');
+			alert('新密码不能为空');
 			return false;
 		}
 		if($("#confirm_pas").val()==""||$("#confirm_pas").val()==null){
-			layer.tips('确认密码不能为空', '#confirm_pas');
+			//layer.tips('确认密码不能为空', '#confirm_pas');
+			alert('确认密码不能为空');
 		return false;
 		}
 		if($("#new_password").val()!=$("#confirm_pas").val()){
 			$("#new_password").val("");
 			$("#confirm_pas").val("");
-			layer.msg('密码不一致，请重新输入');
+			//layer.msg('密码不一致，请重新输入');
+			alert('新密码不一致，请重新输入');
 		    return false;
 		}
-		if($("#new_password").val().length<6||$("#new_password").val().length>8){
+		if($("#new_password").val().length<6||$("#new_password").val().length>20){
 			
-			layer.msg('密码长度必须在6-8,请重新输入');
+			//layer.msg('密码长度必须在6-8,请重新输入');
+			alert('密码长度必须在6-20,请重新输入')
 			$("#new_password").val("");
 			$("#confirm_pas").val("");
 		    return false;
@@ -88,8 +95,8 @@ $(function(){
 		$.ajax({
 	 	       type:"POST",
 	 	       ansyc:false,
-	 	       url: "user/modifyUserPass",
-	 	       data:{account:$("#account").val(),
+	 	       url: "user/modifyPasswordSubmit",
+	 	       data:{loginname:$("#account").val(),
 	 	    	   password:$("#password").val(),
 	 	    	  newPassword:$("#new_password").val()
 	 	       },
@@ -97,12 +104,14 @@ $(function(){
 	 	       contentType:"application/x-www-form-urlencoded;charset=utf-8",
 	 	       success:function(data){
 	 	    	 if(data.flag){
-	 	    		 layer.msg('修改成功！', {icon: 1});
-		    		   setTimeout(function(){
-		    			   window.parent.location.href="user/loginOut";
-		    			 }, 2000);
+	 	    		 //layer.msg('修改成功！', {icon: 1});
+	 	    		 alert('修改密码成功！');
+		    		   /* setTimeout(function(){
+		    			   window.parent.location.href="jsp/index.jsp";
+		    			 }, 2000); */
 	 	    	 }else{
-	 	    		layer.msg('用户名密码不对！', {icon: 1});
+	 	    		//layer.msg('用户名密码不对！', {icon: 1});
+	 	    		alert('用户名密码不对！');
 	 	    	 }
 	 	       }
 	 	}); 

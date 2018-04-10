@@ -118,16 +118,15 @@
 		        dataType: 'json',
 		        data: JSON.stringify(params),
 		        success: function(data){
-		        	if (data.forwardUrl != null) {
-		                window.parent.showMessageBoxParent("success!", 2000);
-		                window.location = data.forwardUrl;
-		        	}
+		        	if(data.flag){
+		 	    		 alert('下单成功！');
+			    		    setTimeout(function(){
+			    			   window.parent.location.href="${pageContext.request.contextPath }/order/toOrderList";
+			    			 }, 2000); 
+		 	    	 }else{
+		 	    		alert('下单失败！');
+		 	    	 }
 		        }
-		            /* window.location.href="${pageContext.request.contextPath }/order/createNewOrderSubmit";
-		        },error:function(){  
-	                console.log("获取错误");
-	                alert("下单失败！");
-	            }   */
 		    });
 	  	}
 	}

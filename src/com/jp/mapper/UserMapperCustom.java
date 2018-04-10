@@ -8,4 +8,7 @@ public interface UserMapperCustom {
     
 	public User selectByLoginnameAndPassword(@Param("loginname")String loginname,
 											@Param("password")String password) throws Exception;
+	
+	public boolean updatePasswordByLoginname(@Param("loginname")String loginname,
+											@Param("newPassword")String newPassword) throws Exception;
 }

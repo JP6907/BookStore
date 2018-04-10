@@ -86,7 +86,7 @@ $(function(){
     </dd> --> 
        <dd><div class="title"><span><img src="jsp/images/leftico04.png" /></span>修改密码</div>
     <ul class="menuson">
-        <li><cite></cite><a href="user/toModifPassPage" target="rightFrame">修改密码</a><i></i></li>
+        <li><cite></cite><a href="user/modifyPassword" target="rightFrame">修改密码</a><i></i></li>
     </ul>
     
     </dd> 
