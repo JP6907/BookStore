@@ -28,7 +28,7 @@
     
     <div class="welinfo">
     <span><img src="jsp/images/sun.png" alt="天气" /></span>
-    <b>Admin早上好，欢迎使用信息管理系统</b>(admin@uimaker.com)
+    <b>您好，欢迎使用后台管理系统</b>
     <a href="#">帐号设置</a>
     </div>
     

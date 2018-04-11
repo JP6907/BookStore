@@ -40,7 +40,12 @@
   
   <select id="selectByOrderid" resultMap="OrderResultMap" parameterType="java.lang.String" >
     select * from orders
-    where orderid = #{orderid}
+    <where>
+	    <if test="orderid!=null and orderid!=''">
+	    	orderid like '%${orderid}%'
+	    </if>	
+    </where>
+    order by ordertime desc
   </select>
   
   <select id="selectOrdersByUserid" resultMap="OrderResultMap" parameterType="java.lang.Integer" >
@@ -56,5 +61,13 @@
    		from orders,orderitem,book 
    		where book.lsbn=orderitem.lsbn and orders.orderid=orderitem.orderid 
    		and book.userid=#{userid};
+  </select>
+  
+  <select id="selectOrdersByStatus" resultMap="OrderResultMap" parameterType="java.lang.String" >
+    select * from orders
+    <if test="status!=null and status!=''">
+    	where status = #{status}
+   	</if>
+   	order by ordertime desc
   </select>
 </mapper>

@@ -122,7 +122,7 @@
 		 	    		 alert('下单成功！');
 			    		    setTimeout(function(){
 			    			   window.parent.location.href="${pageContext.request.contextPath }/order/toOrderList";
-			    			 }, 2000); 
+			    			 }, 1000); 
 		 	    	 }else{
 		 	    		alert('下单失败！');
 		 	    	 }

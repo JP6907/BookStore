@@ -9,17 +9,57 @@
 %>
 <!DOCTYPE HTML>
 <html>
-	<head>
+<head>
 
 		<base href="${basePath}">
 		<meta charset="UTF-8">
 		<title>H5模版:</title>
-         <link rel="stylesheet" href="layui/css/layui.css"  media="all">
-<link href="jsp/css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="jsp/js/jquery.js"></script></head>
-	     <script src="layer/layer.js"></script>
-        <script src="layui/layui.js" charset="utf-8"></script>
-    <body>
+		<link href="jsp/css/style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="jsp/js/jquery.js"></script>
+<script type="text/javascript">
+$(function() {
+	/* var sel=document.getElementById(".status");
+	sel.onchange = function(){
+		alert("change");
+	}  */
+	//搜索栏订单类型下拉选框设置监听
+	$("#orderStatus").change(function() {
+		 var selected=$(this).children('option:selected').val();
+		 window.location.href="${pageContext.request.contextPath }/order/queryOrderByStatus?status="+selected;
+	});
+	 //给所有订单状态的下拉选框设置监听事件
+	 $("#20status").change(function() {
+		alert("确定要修改该订单状态吗？");
+		 var selected=$(this).children('option:selected').val();
+		 sendUpdateStatus(20,selected);
+	});  
+});
+//请求服务器，修改订单状态
+function sendUpdateStatus(id, status) {
+	var params = {
+			"id":id,
+			"status":status
+	    };
+	$.ajax({
+	       type:"POST",
+	       ansyc:false,
+	       url: "${pageContext.request.contextPath}/order/updateStatus",
+	       dataType:"json",
+	       contentType : 'application/json;charset=UTF-8',
+	       data: JSON.stringify(params),
+		success:function(data) {
+			if(data.flag){
+				alert("修改成功！");
+			}else{
+				alert("出错啦！");
+			}
+		}
+	});
+}
+</script>  
+</head>
+    
+<body>
 <div class="place">
     <span>位置：</span>
     <ul class="placeul">
@@ -32,23 +72,20 @@
      <div class="tools">
     	  <ul class="seachform">
     
-	    <form action="order/toModPage" method="POST">
-			    <li><label>订单号</label><input name="orderId" id="orderId" type="text" class="scinput" /></li>
-	             <li><label>订单类型</label>
+	    <form action="order/queryOrderByOrderid" method="POST">
+			    
+	             <li><label>&nbsp;&nbsp;订单类型：</label>
 	                <select id="orderStatus" name="orderStatus" class="scinput">
-	                <option value="等待付款">全部</option>
-	                <option value="等待付款">等待付款</option>
-	                <option value="准备发货">准备发货</option>
-	                <option value="等待确认">等待确认</option>
-	                <option value="交易成功">交易成功</option>
-	                <option value="已取消">已取消</option>
-	                <!-- <option value="未处理">未处理</option>
-	                <option value="已处理">已处理</option> -->
+	                	<option value="全部">全部</option>
+	                <c:forEach items="${orderStatusList}" var="curstatus">
+	                	<option value="${curstatus}" <c:if test="${selectedStatus!=null && selectedStatus eq curstatus}">selected</c:if>>${curstatus}</option>
+	                </c:forEach>
 	                </select>
 	             </li>
-			    <li><label>&nbsp;</label><input  type="button" class="scbtn" id="sel" value="查询订单"/></li>
-			    </ul>
-	    </form>        
+	             <li><label>订单号：</label><input name="orderid_input" id="orderid_input" type="text" class="scinput" /></li>
+			    <li><label>&nbsp;</label><input  type="submit" class="scbtn" id="sel" value="查询订单"/></li>
+	    </form>   
+	    </ul>     
     </div>
     </c:if>
     
@@ -72,7 +109,13 @@
           <tr style="text-align:center">
                     <td>${order.orderid }</td>
                     <td><fmt:formatDate value='${order.ordertime }' type='date' pattern='yyyy年MM月dd HH:mm:ss'/></td>
-                    <td>${order.status  }</td>
+                    <td>
+                    	<select id="${order.id }status" class="scinput">
+	                    	<c:forEach items="${orderStatusList}" var="curstatus">
+		                	<option value="${curstatus}" <c:if test="${order.status eq curstatus}">selected</c:if> >${curstatus}</option>
+		                	</c:forEach>
+                    	</select>
+                    </td>
                     <td>${order.total  }</td>
                     <td>${order.username }</td>
                 </tr>
@@ -85,139 +128,6 @@
         </tfoot>
        
     </table>
-    <input type="hidden" id="count" value="${count }"/>
-    <script type="text/javascript">
-    $(function(){
-    	
-  
-    	
-    	
-    });
-    
-    </script>
-    <script type="text/javascript">
-     $(function(){
-    	 
-    	 
-    	 
-    	 
-     	layui.use(['laypage', 'layer'], function(){
-    		  var laypage = layui.laypage
-    		  ,layer = layui.layer;
-    		  
-    		
-    	  laypage({
-    		    cont: 'demo7'
-    		    ,pages:$("#count").val()
-    		    ,skip: true
-    		    ,jump: function(obj, first){
-    		    	layer.msg('数据加载中', {
-    		    		  icon: 16
-    		    		  ,shade: 0.01
-    		    		});
-    		    	setTimeout(function(){
-    		    		  layer.closeAll('loading');
-    		    		  toLimitit(obj.curr);
-    		    			 layer.msg('第 '+ obj.curr +' 页');
-    		    		}, 2000);
-    		    	 
-    		    
-    		    	 
-    		    }
-    		  });
-    	  
-    	  
-    	});
-    	
-        function toLimitit(tag){
-            $.ajax({
-                  type:"POST",
-                  url: "order/toTargetorderPage",
-                  ansyc:false,
-                  data:{Page:tag,
-                	  orderStatus:$("#orderStatus").val()
-                 
-                  },
-                  dataType:"json",
-                  contentType:"application/x-www-form-urlencoded;charset=utf-8",
-                  success:function(data){
-                      $("#tbody").html("");//清空原来的表格，重新生成表格
-                      //alert(data.list.length);
-                      for(var i=0;i<data.list.length;i++)
-                        {  
-                           $("#tbody").append('<tr style=text-align:center id='+i+'>'); 
-                           $("#"+i).append('<td>'+data.list[i].orderId+'</td>');
-                           $("#"+i).append('<td>'+data.list[i].orderTime +'</td>');
-                           $("#"+i).append('<td>'+data.list[i].orderStatus +'</td>');
-                           $("#"+i).append('<td>'+data.list[i].orderAssment +'</td>');
-                           $("#"+i).append('<td>'+data.list[i].orderDelivery +'</td></tr>');
-                        }
-                  }
-           }); 
-       } 
-        $("#sel").on('click',function(){
-        	var orderId=$("#orderId").val();
-        	//alert(orderId);
-     		 $.ajax({
-   		       type:"POST",
-   		       ansyc:false,
-   		       url: "order/getSignalorder",
-   		       data:{orderId:orderId
-   		       },
-   		       dataType:"json",
-   		       contentType:"application/x-www-form-urlencoded;charset=utf-8",
-   		       success:function(data){
-   		    	   var info="订单号:"+data.order.orderId+"<br>";
-   		    	info=info+"客户名:"+data.order.client.clientName+"<br>";
-   		    	info=info+"客户编号:"+data.order.client.clientId+"<br>";
-   		    	info=info+"书籍名:"+data.order.bookInfo.bookName+"<br>";
-   		    	info=info+"下单时间:"+data.order.orderTime+"<br>";
-   		    	info=info+"订单状态:"+data.order.orderStatus+"<br>";
-   		    	   layer.open({
-   		    		   type: 0,
-   		    		   shade: false,
-   		    		   title: false, //不显示标题
-   		    		   content: info //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
-   		    		 });
-   		       }
-   		});
-      	}); 
-    	$("#del").on('click',function(){
-    		var orderId=$("#orderId").val();
-    		layer.confirm('是否删除该条信息？', {
-    			  btn: ['是','否'] //按钮
-    			}, function(){
-    				 $.ajax({
-    				       type:"POST",
-    				       url: "order/delorderByIsbn",
-    				       data:{orderId:orderId
-    				       },
-    				       dataType:"json",
-    				       contentType:"application/x-www-form-urlencoded;charset=utf-8",
-    				       success:function(data){
-    				    	   if(data.flag){
-    				    		   layer.msg('删除成功！', {icon: 1});
-    				    		   setTimeout(function(){
-    				    			   toLimitit(1);
-    				    			 }, 2000);
-    				    		   
-    				    	   }
-    				    	   else{
-    				    		   layer.msg('删除失败!');
-    				    	   }
-    				       }
-    				}); 
-    			
-    			});
-    	}); 
-     });
-	</script>
-    
-    
-    
-    
-    
-    </div>
 
 
 	</body>

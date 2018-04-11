@@ -33,7 +33,16 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public OrderCustom selectByOrderid(String orderid) throws Exception {
+	/**
+     * 根据订单号查询订单，支持模糊查询
+     * @Description: TODO(这里用一句话描述这个方法的作用)   
+     * @param: @param orderid
+     * @param: @return
+     * @param: @throws Exception      
+     * @return: OrderCustom      
+     * @throws
+     */
+	public List<OrderCustom> selectByOrderid(String orderid) throws Exception {
 		// TODO Auto-generated method stub
 		return orderMapperCustom.selectByOrderid(orderid);
 	}
@@ -74,6 +83,32 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderCustom> selectOrdersReceiveByUserid(Integer userid) throws Exception {
 		// TODO Auto-generated method stub
 		return orderMapperCustom.selectOrdersReceiveByUserid(userid);
+	}
+
+	@Override
+	public boolean updateStatus(Integer id, String status) throws Exception {
+		// TODO Auto-generated method stub
+		Orders order = new Orders();
+		order.setId(id);
+		order.setStatus(status);
+		return orderMapper.updateByPrimaryKeySelective(order)>0?true:false;
+	}
+
+	@Override
+	/**
+	 * 根据订单状态查询订单
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param: @param status ，status为全部时查询所有订单
+	 * @param: @return
+	 * @param: @throws Exception      
+	 * @return: List<OrderCustom>      
+	 * @throws
+	 */
+	public List<OrderCustom> selectOrdersByStatus(String status) throws Exception {
+		if(status.equals("全部"))
+			return orderMapperCustom.selectOrdersByStatus(null);
+		else
+			return orderMapperCustom.selectOrdersByStatus(status);
 	}
 
 }

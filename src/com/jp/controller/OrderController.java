@@ -95,7 +95,7 @@ public class OrderController {
 		
 		System.out.println("前台获取订单详情");
 	 	
-		OrderCustom order = orderService.selectByOrderid(orderid);  
+		OrderCustom order = orderService.selectByOrderid(orderid).get(0);  
 		
 		List<BookCustom> bookList = order.getBookList();
 		for(BookCustom book:bookList){
@@ -192,7 +192,6 @@ public class OrderController {
         }
 	}
 	
-	
 	//前台部分
 	/////**************************************////////
 	//后台部分
@@ -217,6 +216,7 @@ public class OrderController {
 			
 			model.addAttribute("identity" , user.getIdentity());
 	        model.addAttribute("orderList" , orderList);
+	        model.addAttribute("orderStatusList",OrderUtil.getOrderStatusList());
 	        
 			return "back/order/order_list";
 	 	}else{
@@ -243,6 +243,106 @@ public class OrderController {
 			
 			model.addAttribute("identity" , user.getIdentity());
 	        model.addAttribute("orderList" , orderList);
+	        model.addAttribute("orderStatusList",OrderUtil.getOrderStatusList());
+	        
+			return "back/order/order_list";
+	 	}else{
+	 		return "login";
+	 	}
+	}
+	/**
+	 * 修改订单状态
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param: @param model
+	 * @param: @param session
+	 * @param: @param map
+	 * @param: @param request
+	 * @param: @param pw
+	 * @param: @throws Exception      
+	 * @return: void      
+	 * @throws
+	 */
+	@RequestMapping(value="/updateStatus",
+			method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	private void updateStatus(Model model,HttpSession session,
+			@RequestBody Map<String,Object> map,HttpServletRequest request,
+			PrintWriter pw) throws Exception{
+		
+		System.out.println("修改订单状态");
+		boolean flag = false;
+		User user = (User)session.getAttribute("admin");
+		if(user!=null){
+			int id = Integer.parseInt(map.get("id").toString());
+			String status = map.get("status").toString();
+			System.out.println("id:" + id);
+			System.out.println("status:" + status);			
+			flag = orderService.updateStatus(id,status);
+		}
+		Map<String,Object> mapout=new HashMap<String,Object>();
+		mapout.put("flag" , flag);
+        ObjectMapper om=new ObjectMapper();
+        try{
+            String jsonString =om.writeValueAsString(mapout);
+            pw.write(jsonString);
+            pw.flush();
+            pw.close();
+        }catch(JsonProcessingException e){
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+	}
+	/**
+	 * 根据ordeid查询order
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param: @param model
+	 * @param: @param session
+	 * @param: @return
+	 * @param: @throws Exception      
+	 * @return: String      
+	 * @throws
+	 */
+	@RequestMapping("/queryOrderByOrderid")
+	private String queryOrderByOrderid(Model model,HttpSession session,
+						@Param("orderid_input")String orderid_input) throws Exception{
+		
+		System.out.println("根据订单号查询订单:" + orderid_input);
+	 	User user = (User)session.getAttribute("admin");
+	 	if(user!=null){
+			List<OrderCustom> orderList = orderService.selectByOrderid(orderid_input);
+			
+			model.addAttribute("identity" , user.getIdentity());
+	        model.addAttribute("orderList" , orderList);
+	        model.addAttribute("orderStatusList",OrderUtil.getOrderStatusList());
+	        
+			return "back/order/order_list";
+	 	}else{
+	 		return "login";
+	 	}
+	}
+	/**
+	 * 根据stats查询order
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param: @param model
+	 * @param: @param session
+	 * @param: @return
+	 * @param: @throws Exception      
+	 * @return: String      
+	 * @throws
+	 */
+	@RequestMapping("/queryOrderByStatus")
+	private String queryOrderByStatus(Model model,HttpSession session,
+						@Param("status")String status) throws Exception{
+		
+		System.out.println("根据订单状态查询订单:" + status);
+	 	User user = (User)session.getAttribute("admin");
+	 	if(user!=null){
+			List<OrderCustom> orderList = orderService.selectOrdersByStatus(status);
+			
+			model.addAttribute("identity" , user.getIdentity());
+	        model.addAttribute("orderList" , orderList);
+	        model.addAttribute("orderStatusList",OrderUtil.getOrderStatusList());
+	        model.addAttribute("selectedStatus" , status);   //设置选中状态
 	        
 			return "back/order/order_list";
 	 	}else{

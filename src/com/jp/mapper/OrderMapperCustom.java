@@ -9,8 +9,17 @@ import com.jp.po.OrderCustom;
 
 
 public interface OrderMapperCustom {
-    
-	public OrderCustom selectByOrderid(String orderid) throws Exception;
+    /**
+     * 根据订单号查询订单，支持模糊查询
+     * @Description: TODO(这里用一句话描述这个方法的作用)   
+     * @param: @param orderid
+     * @param: @return
+     * @param: @throws Exception      
+     * @return: OrderCustom      
+     * @throws
+     */
+	public List<OrderCustom> selectByOrderid(@Param("orderid")String orderid) throws Exception;
+	
 	/**
 	 * userid为空时获取全部数据
 	 * @Description: TODO(这里用一句话描述这个方法的作用)   
@@ -32,5 +41,15 @@ public interface OrderMapperCustom {
 	 * @throws
 	 */
 	public List<OrderCustom> selectOrdersReceiveByUserid(@Param("userid")Integer userid) throws Exception;
+	/**
+	 * 根据订单状态查询订单
+	 * @Description: TODO(这里用一句话描述这个方法的作用)   
+	 * @param: @param status ，status为空时查询所有订单
+	 * @param: @return
+	 * @param: @throws Exception      
+	 * @return: List<OrderCustom>      
+	 * @throws
+	 */
+	public List<OrderCustom> selectOrdersByStatus(@Param("status")String status) throws Exception;
 
 }
