@@ -31,7 +31,7 @@ $(function(){
     </div>
     <div class="topright">    
     <ul>
-    <li><a href="user/loginOut" target="_parent">退出</a></li>
+    <li><a href="user/manageSystemLoginOut" target="_parent">退出</a></li>
     </ul>
      
     <div class="user">

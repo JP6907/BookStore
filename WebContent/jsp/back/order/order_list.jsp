@@ -82,7 +82,7 @@ function sendUpdateStatus(id, status) {
 	                </c:forEach>
 	                </select>
 	             </li>
-	             <li><label>订单号：</label><input name="orderid_input" id="orderid_input" type="text" class="scinput" /></li>
+	             <li><label>订单号：</label><input name="orderid_input" id="orderid_input" type="text" class="scinput" placeholder="订单号"/></li>
 			    <li><label>&nbsp;</label><input  type="submit" class="scbtn" id="sel" value="查询订单"/></li>
 	    </form>   
 	    </ul>     
@@ -95,6 +95,7 @@ function sendUpdateStatus(id, status) {
     <table class="tablelist">
     	<thead>
     	<tr style="text-align:center">
+    	<th style="text-align:center">&nbsp;</th>
         <th style="text-align:center">订单号</th>
         <th style="text-align:center">订单时间</th>
         <th style="text-align:center">订单状态</th>
@@ -107,17 +108,19 @@ function sendUpdateStatus(id, status) {
        <c:forEach items="${orderList}" var="order" varStatus="vs">
                 <c:set var="index" value="${index+1}" />
           <tr style="text-align:center">
-                    <td>${order.orderid }</td>
-                    <td><fmt:formatDate value='${order.ordertime }' type='date' pattern='yyyy年MM月dd HH:mm:ss'/></td>
-                    <td>
-                    	<select id="${order.id }status" class="scinput">
+          			<td width="5%">${index }</td>
+                    <td width="35%">${order.orderid }</td>
+                    <td width="20%"><fmt:formatDate value='${order.ordertime }' type='date' pattern='yyyy年MM月dd HH:mm:ss'/></td>
+                    <td width="20%">
+                    	<select id="${order.id }status" class="scinput" 
+                    		<c:if test="${orderType eq 'purchase' }">disabled="disabled"</c:if>>
 	                    	<c:forEach items="${orderStatusList}" var="curstatus">
 		                	<option value="${curstatus}" <c:if test="${order.status eq curstatus}">selected</c:if> >${curstatus}</option>
 		                	</c:forEach>
                     	</select>
                     </td>
-                    <td>${order.total  }</td>
-                    <td>${order.username }</td>
+                    <td width="10%">${order.total  }</td>
+                    <td width="10%">${order.username }</td>
                 </tr>
         </c:forEach>
         </tbody>

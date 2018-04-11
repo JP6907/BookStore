@@ -60,6 +60,14 @@ public class UserController {
 			return "login";
 		}
 	}
+	 @RequestMapping(value="/manageSystemLoginOut")
+	 public String manageSystemLoginOut(String loginname,String password,Model model,
+			 HttpSession session) throws Exception{
+		
+		System.out.println("后台管理系统退出登陆......");
+		session.invalidate();
+		return "login";
+	}
 
 	/**
 	 * 处理/login请求

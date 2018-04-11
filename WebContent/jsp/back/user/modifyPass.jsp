@@ -11,39 +11,43 @@
 
 		<base href="${basePath}">
 		<meta charset="UTF-8">
-		<title>H5模版:</title>
-           <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+		<title>后台管理系统</title>
         <link rel="stylesheet" href="jsp/css/reset.css" />
-        <link rel="stylesheet" href="jsp/css/content.css" />
+        <link rel="stylesheet" href="jsp/css/content.css?version=201804114" />
+        <link href="jsp/css/style.css?version=201804112" rel="stylesheet" type="text/css" />
         <script src="jsp/js/jquery.js"></script>
-        <script src="layer/layer.js"></script>
-        <script src="layui/layui.js" charset="utf-8"></script>
 	</head>
 	<body marginwidth="0" marginheight="0">
+	<div class="place">
+		    <span>位置：</span>
+		    <ul class="placeul">
+			    <li><a href="#">首页</a></li>
+			    <li><a href="#">修改密码</a></li>
+		    </ul>
+	    </div>
 	<div class="container">
-		<div class="public-nav">您当前的位置：<a href="">修改密码</a>></div>
 		<div class="public-content">
 			<div class="public-content-cont">
 			<form action="user/modifyPasswordSubmit" id="modForm" method="post">
 			
 				<div class="form-group">
-					<label for="">账号</label>
+					<label for="">&nbsp;&nbsp;&nbsp;&nbsp;账号:</label>
 					<input class="form-input-txt" type="text" name="account" id="account" value="${admin.loginname }" />
 				</div>
                  <div class="form-group">
-                    <label for="">密码</label>
+                    <label for="">&nbsp;&nbsp;旧密码:</label>
                     <input class="form-input-txt" type="password" name="password" id="password" value="" />
                 </div>
                  <div class="form-group">
-                    <label for="">新密码</label>
+                    <label for="">&nbsp;&nbsp;新密码:</label>
                     <input class="form-input-txt" type="password" name="new_password" id="new_password" value="" />
                 </div>
                  <div class="form-group">
-                    <label for="">确认密码</label>
+                    <label for="">确认密码:</label>
                     <input class="form-input-txt" type="password" name="confirm_pas" id="confirm_pas" value="" />
                 </div>
                 <div class="form-group">
-                    <input class="layui-btn layui-btn-normal layui-btn-radius" style="margin-left:150px;margin-top:30px;" type="button" name="modify" id="modify" value="保存" />
+                    <input class="form-btn" style="margin-left:150px;margin-top:30px;" type="button" name="modify" id="modify" value="保存" />
                 </div>
 				</form>
 			</div>

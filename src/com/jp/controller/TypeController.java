@@ -1,9 +1,6 @@
 package com.jp.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +8,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.jp.po.BookCustom;
+import com.jp.po.Type;
 import com.jp.po.TypeCustom;
 import com.jp.service.TypeService;
-import com.jp.utils.ImageUtils;
 import com.jp.utils.PageUtil;
 
 @Controller
@@ -29,7 +23,7 @@ public class TypeController {
 	private TypeService typeService;
 	
 	@RequestMapping("/toTypeList")
-    public String toBookInfoList(Model model, @Param("pageNumNow")Integer pageNumNow) throws Exception{
+    public String toTypeList(Model model, @Param("pageNumNow")Integer pageNumNow) throws Exception{
 	 	System.out.println("请求图书类型列表,页号:" + pageNumNow);
 	 	//默认获取第一页
 	 	int page = 1;
@@ -54,86 +48,76 @@ public class TypeController {
         
         return "back/book/book_type_list";
     }
+	
+	 //删除书籍
+	 @RequestMapping("/deleteType")
+	 public String deleteBook(@Param("id")String id) throws Exception{
+		 
+		System.out.println("删除图书类型---id：" + id);
 
-//	//获取图书详情
-//	 @RequestMapping("/getBookItems")
-//	 public String getBookItems(@Param("lsbn")String lsbn){
-//		 
-//		 System.out.println(lsbn);
-//		 
-//		 return "forward:/book/toBookList";
-//	 }
-//	 
-//	//添加书籍
-//	 @RequestMapping("/addBook")
-//	public String getBookItems(HttpServletRequest request,
-//								@Param("bookCustom")BookCustom bookCustom,
-//								@RequestParam("image")MultipartFile image) 
-//								throws Exception{
-//			 
-//		
-//		double price = bookCustom.getPrice();
-//		double currPrice = bookCustom.getCurrprice();
-//		//计算折扣
-//		double discount = ((double)Math.round(currPrice/price*100)/100) * 10;
-//		bookCustom.setDiscount(discount); //计算折扣
-//		
-//		System.out.println(bookCustom);
-//		//文件保存路径
-//		String imagePath = request.getServletContext().
-//				getRealPath("/" + ImageUtils.BookImageFolderName + "/");
-//		//保存
-//		bookService.addBook(bookCustom, image, imagePath);
-//		
-//		
-//		return "forward:/book/toBookList";
-//	 }
-//	 //修改书籍
-//	 @RequestMapping("/modifyBook")
-//	 public String modifyBook(@Param("lsbn")String lsbn, Model model) throws Exception{
-//		 
-//		System.out.println("修改图书信息---lsbn:" + lsbn);
-//		BookCustom bookCustom = bookService.getBookByLsbn(lsbn);
-//		model.addAttribute("bookCustom", bookCustom);
-//		 
-//		 return "book_modify"; 
-//	 }
-//	 
-//	 //修改书籍提交
-//	 /////////////
-//	 ///修改图片未添加
-//	 ////////////
-//	 @RequestMapping("/modifyBookSubmit")
-//	 public String modifyBookSubmit(@Param("bookCustom")BookCustom bookCustom, 
-//			 							Model model) throws Exception{
-//		 
-//		System.out.println("提交修改图书信息---:");
-//		
-//		double price = bookCustom.getPrice();
-//		double currPrice = bookCustom.getCurrprice();
-//		//计算折扣
-//		double discount = ((double)Math.round(currPrice/price*100)/100) * 10;
-//		bookCustom.setDiscount(discount); //计算折扣
-//		
-//		System.out.println(bookCustom);
-//		
-//		bookService.modifyBook(bookCustom);
-//		
-//		model.addAttribute("bookCustom", bookCustom);
-//		 
-//		return "book_modify"; 
-//	 }
-//	 
-//	 //删除书籍
-//	 @RequestMapping("/deleteBook")
-//	 public String deleteBook(@Param("lsbn")String lsbn) throws Exception{
-//		 
-//		System.out.println("删除书籍---lsbn：" + lsbn);
-//		List<String> lsbnList = new ArrayList<String>();
-//		lsbnList.add(lsbn);
-//		bookService.deleteBooks(lsbnList);
-//		 
-//		 return "forward:/book/toBookList"; 
-//	 }
-
+		typeService.deleteTypeById(Integer.parseInt(id));
+		 
+		 return "forward:/type/toTypeList"; 
+	 }
+	 
+	//添加类型
+	 @RequestMapping("/addType")
+	 public String addType(Model model) throws Exception{
+	 
+		System.out.println("添加图书类型信息请求");
+		 
+		return "back/book/book_type_add"; 
+	 }
+		 
+	 //添加类型提交
+	 @RequestMapping("/addTypeSubmit")
+     public String addTypeSubmit(Type type, Model model) throws Exception{
+			 
+		System.out.println("添加图书类型信息提交---:"+type.getName());
+		typeService.addType(type);
+			
+		return "forward:/type/toTypeList"; 
+	 }
+	 
+	 //修改书籍
+	 @RequestMapping("/modifyType")
+	 public String modifyType(@Param("id")String id, Model model) throws Exception{
+		 
+		System.out.println("修改图书类型信息---id:" + id);
+		Type type = typeService.getTypeById(Integer.parseInt(id));
+		model.addAttribute("type", type);
+		 
+		 return "back/book/book_type_mod"; 
+	 }
+	 
+	 //修改类型提交
+	 @RequestMapping("/modifyTypeSubmit")
+	 public String modifyTypeSubmit(Type type, Model model) throws Exception{
+		 
+		System.out.println("修改图书类型信息提交---:");
+		typeService.modifyTypeById(type);
+		 
+		return "forward:/type/toTypeList"; 
+	 }
+	 /**
+	  * 查询类型
+	  * 根据 类型名 或 类型介绍 模糊查询
+	  * @Description: TODO(这里用一句话描述这个方法的作用)   
+	  * @param: @param model
+	  * @param: @param name_desc
+	  * @param: @return
+	  * @param: @throws Exception      
+	  * @return: String      
+	  * @throws
+	  */
+	 @RequestMapping("/queryType")
+	    public String queryType(Model model,@Param("name_desc")String name_desc) throws Exception{
+		 	System.out.println("搜索图书类型:" + name_desc);
+		 	
+	        List<TypeCustom> typeList = typeService.getTypeList(name_desc);
+	        
+	        model.addAttribute("typeList" , typeList);
+	        
+	        return "back/book/book_type_list";
+	    }
 }

@@ -25,42 +25,21 @@
 <div class="place">
     <span>位置：</span>
     <ul class="placeul">
-        <li>测试表单数据</li>
+        <li>修改图书类型</li>
     </ul>
 </div>
 
 <div class="formbody">
 
-    <div class="formtitle"><span>添加信息</span></div>
-     <form action="bookType/modifyBookTypeByIsbn" id="modForm"method="post">
+    <div class="formtitle"><span>修改信息</span></div>
+     <form action="${pageContext.request.contextPath}/type/modifyTypeSubmit" id="modForm"method="post">
+     	<input name="id" id="id" type="hidden" value="${type.id }" />
     <ul class="forminfo">
-      <li><label>书籍类型</label><input name="bookTypeIsbn" id="bookTypeIsbn" type="text" readonly="readonly" value="${bookType.bookTypeIsbn }" class="dfinput"/></li>
-      <li><label>书籍类型</label><input name="bookTypeName" id="bookTypeName" type="text" value="${bookType.bookTypeName }" class="dfinput"/></li>
-      <li><label>&nbsp;</label><input name="save" id="save" type="button" class="btn" value="保存" id="save"/></li>
+      <li><label>书籍类型:</label><input name="name" id="name" type="text" value="${type.name }" class="dfinput"/></li>
+      <li><label>类型介绍:</label><input name="description" id="description" type="text" value="${type.description }" class="dfinput"/></li>
+      <li><label>&nbsp;</label><input name="save" id="save" type="submit" class="btn" value="保存" id="save"/></li>
     </ul>
     </form>
 </div>
 	</body>
-    <script type="text/javascript">
-    $(function(){
-        $("#save").on("click",function(){
-       	layer.msg('拼命上传中,请稍后....', {
-       		  icon: 16
-       		  ,shade: 0.45
-       		});
-       	setTimeout(function(){
-       		$("#modForm").submit();
-       	  layer.closeAll('loading');
-       	}, 2000);
-       	 
-
-       });
-    	
-    	
-    	
-    });
-    
-    
-    
-    </script>
 </html>

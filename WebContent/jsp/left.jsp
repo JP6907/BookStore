@@ -75,8 +75,8 @@ $(function(){
     <c:if test="${identity eq 'user'}">
     <dd><div class="title"><span><img src="jsp/images/leftico03.png" /></span>订单管理</div>
     <ul class="menuson">
-        <li><cite></cite><a href="order/toOrderListInback" target="rightFrame">我的订单</a><i></i></li>
-        <li><cite></cite><a href="order/toOrderReceiveListInback" target="rightFrame">收到的订单</a><i></i></li>
+        <li><cite></cite><a href="order/toOrderListInback" target="rightFrame">我的购书订单</a><i></i></li>
+        <li><cite></cite><a href="order/toOrderReceiveListInback" target="rightFrame">我收到的订单</a><i></i></li>
     </ul>    
     </dd>  
     </c:if>

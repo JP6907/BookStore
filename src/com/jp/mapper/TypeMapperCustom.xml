@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jp.mapper.TypeMapperCustom" >
-  
-    
-    <sql id="select_type_name_where">
-        <if test="name!=null and name!=''">
-              name LIKE '%${name}%'
-        </if>
-    </sql>
-    <sql id="select_type_description_where">
-        <if test="description!=null and description!=''">
-              description LIKE '%${description}%'
-        </if>
-    </sql>
     
     <select id="getTypeList" parameterType="java.lang.String" 
         resultType="com.jp.po.TypeCustom">
   		select * from type
   		<where>
-  		    <include refid="select_type_name_where"></include>
-  		</where>
-  		<where>
-  		    <include refid="select_type_description_where"></include>
+  		    <if test="value!=null and value!=''">
+              name LIKE '%${value}%'
+              or description LIKE '%${value}%'
+        	</if>
   		</where>
   	</select>
   	

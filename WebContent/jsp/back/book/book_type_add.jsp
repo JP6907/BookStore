@@ -12,7 +12,7 @@
 
 		<base href="${basePath}">
 		<meta charset="UTF-8">
-		<title>H5模版:</title>
+		<title>后台管理系统</title>
                    <link rel="stylesheet" href="layui/css/layui.css"  media="all">
           <link href="jsp/css/style.css" rel="stylesheet" type="text/css"/>
 	       <script language="JavaScript" src="jsp/js/jquery.js"></script>
@@ -25,56 +25,21 @@
 <div class="place">
     <span>位置：</span>
     <ul class="placeul">
-        <li>测试表单数据</li>
+        <li>添加图书类型</li>
     </ul>
 </div>
 
 <div class="formbody">
 
     <div class="formtitle"><span>添加信息</span></div>
-     <form action="bookType/addBookType" id="addForm"method="post">
+     <form action="${pageContext.request.contextPath}/type/addTypeSubmit" id="modForm"method="post">
+     	<input name="id" id="id" type="hidden" value="${type.id }" />
     <ul class="forminfo">
-     
-      <li><label>书籍名</label><input name="bookTypeName" id="bookTypeName" type="text" value="" class="dfinput"/></li>
-      <li><label>&nbsp;</label><input name="save" id="save" type="button" class="btn" value="保存" id="save"/></li>
+      <li><label>书籍类型:</label><input name="name" id="name" type="text"  class="dfinput"/></li>
+      <li><label>类型介绍:</label><input name="description" id="description"  class="dfinput"/></li>
+      <li><label>&nbsp;</label><input name="save" id="save" type="submit" class="btn" value="保存" id="save"/></li>
     </ul>
     </form>
 </div>
 	</body>
-    <script type="text/javascript">
-    $(function(){
-        $("#save").on("click",function(){
-       	layer.msg('拼命上传中,请稍后....', {
-       		  icon: 16
-       		  ,shade: 0.45
-       		});
-       	setTimeout(function(){
-       	  var formData = new FormData($("#addForm")[0]);
- 	     $.ajax({
- 	         url: 'bookType/addBookType',
- 	         type: 'POST',
- 	         data: formData,
- 	         async:false,
- 	         cache: false,
- 	         contentType: false,
- 	         enctype: 'multipart/form-data',
- 	         processData: false,
- 	         success: function (data) {
- 	        	   layer.msg('数据上传成功！');
- 	        	   parent.layer.closeAll();
- 	         }
- 	     });
-       	  layer.closeAll('loading');
-       	}, 2000);
-       	 
-
-       });
-    	
-    	
-    	
-    });
-    
-    
-    
-    </script>
 </html>

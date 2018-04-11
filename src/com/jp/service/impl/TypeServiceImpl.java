@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jp.mapper.TypeMapper;
 import com.jp.mapper.TypeMapperCustom;
+import com.jp.po.Type;
 import com.jp.po.TypeCustom;
 import com.jp.service.TypeService;
 import com.jp.utils.PageUtil;
@@ -15,11 +17,13 @@ public class TypeServiceImpl implements TypeService {
 
 	@Autowired
 	private TypeMapperCustom typeMapperCustom;
+	@Autowired
+	private TypeMapper typeMapper;
 	
 	@Override
-	public List<TypeCustom> getTypeList(String name, String descripton) throws Exception {
+	public List<TypeCustom> getTypeList(String name_descripton) throws Exception {
 		
-		return typeMapperCustom.getTypeList(name, descripton);
+		return typeMapperCustom.getTypeList(name_descripton);
 	}
 
 	@Override
@@ -44,6 +48,27 @@ public class TypeServiceImpl implements TypeService {
 		 }else{
 			 return total/PageUtil.NumPerPageInBack + 1;
 		 }
+	}
+
+	@Override
+	public void deleteTypeById(Integer id) throws Exception {
+		typeMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public Type getTypeById(Integer id) throws Exception {
+		// TODO Auto-generated method stub
+		return typeMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public void modifyTypeById(Type type) throws Exception {
+		typeMapper.updateByPrimaryKeySelective(type);
+	}
+
+	@Override
+	public void addType(Type type) throws Exception {
+		typeMapper.insertSelective(type);
 	}
 
 }

@@ -15,7 +15,7 @@
 		<meta charset="UTF-8">
 		<title>后台管理系统</title>
          <link rel="stylesheet" href="layui/css/layui.css"  media="all">
-<link href="jsp/css/style.css" rel="stylesheet" type="text/css" />
+		<link href="jsp/css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="jsp/js/jquery.js"></script></head>
 	     <script src="layer/layer.js"></script>
         <script src="layui/layui.js" charset="utf-8"></script>
@@ -35,8 +35,8 @@
     	<table>
     		<tr>
     			<td>
-    				<li><label>综合查询</label>
-    				<input name="username_loginname" id="username_loginname" type="text" class="scinput" placeholder="账号/用户名"/>
+    				<li><label>&nbsp;&nbsp;综合查询</label>
+    				<input name="username_loginname" id="username_loginname" type="text" class="scinput" placeholder="用户名/账号"/>
     				</li>
     			</td>
     			<td>&nbsp;&nbsp;</td>

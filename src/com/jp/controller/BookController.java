@@ -94,7 +94,7 @@ public class BookController {
 	 @RequestMapping("/addBook")
 	 public String addBook(Model model) throws Exception{
 		//获取图书类型列表	 
-		List<TypeCustom> typeList = typeService.getTypeList(null, null);
+		List<TypeCustom> typeList = typeService.getTypeList(null);
 		model.addAttribute("typeList", typeList);
 		 
 		return "back/book/book_add";
@@ -137,7 +137,7 @@ public class BookController {
 		BookCustom bookCustom = bookService.getBookByLsbn(lsbn);
 		model.addAttribute("bookCustom", bookCustom);
 		//获取图书类型列表	 
-		List<TypeCustom> typeList = typeService.getTypeList(null, null);
+		List<TypeCustom> typeList = typeService.getTypeList(null);
 		model.addAttribute("typeList", typeList);
 		 
 		 return "back/book/book_modify"; 

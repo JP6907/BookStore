@@ -35,7 +35,7 @@
     	<table>
     		<tr>
     			<td>
-    				<li><label>综合查询</label>
+    				<li><label>&nbsp;&nbsp;综合查询</label>
     				<input name="lsbn_name_type" id="lsbn_name_type" type="text" class="scinput" placeholder="lsbn编号/书名/图书类型"/>
     				</li>
     			</td>
@@ -51,10 +51,10 @@
     				target="rightFrame" style="color:#FFFFFF;font-size:15px;">&nbsp;&nbsp;&nbsp;添加书籍</a>
     			</td>
     			<td>&nbsp;&nbsp;</td>
-    			<td class="scbtn">
+    			<!-- <td class="scbtn">
     				<a href="#" 
     				target="rightFrame" style="color:#FFFFFF;font-size:15px;">&nbsp;&nbsp;&nbsp;删除书籍</a>
-    			</td>
+    			</td> -->
     		</tr>
     	</table>
     </form>
@@ -65,7 +65,7 @@
     <table class="tablelist">
     	<thead>
     	<tr style="text-align:center">
-    	<th style="text-align:center">选择</th>
+    	<th style="text-align:center">&nbsp;</th>
         <th style="text-align:center">书籍编号</th>
         <th style="text-align:center">书籍类型</th>
         <th style="text-align:center">书籍名</th>
@@ -82,8 +82,9 @@
                 <c:set var="index" value="${index+1}" />
           <tr style="text-align:center" >
           <%-- onclick="parent.location='${pageContext.request.contextPath}/book/getBookItems?lsbn=${book.lsbn }'" --%>
-          	<td><input type="checkbox" name="lsbn" value="${book.lsbn }"/></td>
-	        <td>
+          	<%-- <td width="5%"><input type="checkbox" name="lsbn" value="${book.lsbn }"/></td> --%>
+          	<td width="3%">${8*(pageNumNow-1)+index }</td>
+	        <td width="16%">
 	        	<c:choose>	
 		    		<c:when test="${fn:length(book.lsbn) >= 15}">     		
 		        		<span class="spa2" title="${book.lsbn}">${fn:substring(book.lsbn,0,15)}……</span>
@@ -93,23 +94,31 @@
 			     	</c:otherwise>
 		 		</c:choose>
 	        </td>
-	        <td>${book.type }</td>
-	         <td>
+	        <td width="10%">${book.type }</td>
+	         <td width="31%">
 	         <!-- 实现字数过多是自动用.....代替，鼠标移过去显示全部 -->
 		         <c:choose>	
-		    		<c:when test="${fn:length(book.name) >= 30}">     		
-		        		<span class="spa2" title="${book.name}">${fn:substring(book.name,0,30)}……</span>
+		    		<c:when test="${fn:length(book.name) >= 25}">     		
+		        		<span class="spa2" title="${book.name}">${fn:substring(book.name,0,25)}……</span>
 		     		</c:when>
 			     	<c:otherwise>
 			         	<span class="spa2" title="${book.name}">${book.name}</span>
 			     	</c:otherwise>
 		 		</c:choose>
 	         </td>         
-	        <td>${book.author }</td>
-	        <td>${book.price }</td>
-	         <td>${book.currprice}</td>
-	         <td><a href="${pageContext.request.contextPath}/book/modifyBook?lsbn=${book.lsbn }" style="color:#4876FF;">修改</a></td>
-	         <td><a href="${pageContext.request.contextPath}/book/deleteBook?lsbn=${book.lsbn }" style="color:#6495ED;">删除</a></td>
+	        <td width="12%">
+	        	<c:choose>	
+		    		<c:when test="${fn:length(book.author) >= 15}">     		
+		        		<span class="spa2" title="${book.author}">${fn:substring(book.author,0,15)}……</span>
+		     		</c:when>
+			     	<c:otherwise>
+			         	<span class="spa2" title="${book.author}">${book.author}</span>
+			     	</c:otherwise>
+		 		</c:choose></td>
+	        <td width="9%">${book.price }</td>
+	         <td width="9%">${book.currprice}</td>
+	         <td width="5%"><a href="${pageContext.request.contextPath}/book/modifyBook?lsbn=${book.lsbn }" style="color:#4876FF;">修改</a></td>
+	         <td width="5%"><a href="${pageContext.request.contextPath}/book/deleteBook?lsbn=${book.lsbn }" style="color:#6495ED;">删除</a></td>
         </tr>
         </c:forEach>
         </tbody>

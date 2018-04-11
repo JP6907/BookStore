@@ -217,6 +217,8 @@ public class OrderController {
 			model.addAttribute("identity" , user.getIdentity());
 	        model.addAttribute("orderList" , orderList);
 	        model.addAttribute("orderStatusList",OrderUtil.getOrderStatusList());
+	        if(user.getIdentity().equals("user"))  //普通用户
+	        	model.addAttribute("orderType" , "purchase");  //订单类型，表示用户的购书订单
 	        
 			return "back/order/order_list";
 	 	}else{
@@ -244,6 +246,7 @@ public class OrderController {
 			model.addAttribute("identity" , user.getIdentity());
 	        model.addAttribute("orderList" , orderList);
 	        model.addAttribute("orderStatusList",OrderUtil.getOrderStatusList());
+	        model.addAttribute("orderType" , "receive");  //订单类型，表示用户收到的订单
 	        
 			return "back/order/order_list";
 	 	}else{
