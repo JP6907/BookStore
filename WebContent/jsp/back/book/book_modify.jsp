@@ -43,10 +43,8 @@
       <li><label>书籍类型</label>
            <select id="type" name="type" class="dfinput" >
         		<c:forEach items="${typeList }" var="type">
-        			<option value="${type.name }" >
-        				<c:if test="${type.name == bookCustom.type}">
-        					selected="selected"
-        				</c:if>
+        			<option value="${type.name }" 
+        				<c:if test="${type.name eq bookCustom.type}">selected</c:if>>
         			${type.name }</option>
         		</c:forEach>
            </select>

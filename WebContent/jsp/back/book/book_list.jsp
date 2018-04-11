@@ -14,11 +14,8 @@
 		<base href="${basePath}">
 		<meta charset="UTF-8">
 		<title>H5模版:</title>
-         <link rel="stylesheet" href="layui/css/layui.css"  media="all">
 <link href="jsp/css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="jsp/js/jquery.js"></script></head>
-	     <script src="layer/layer.js"></script>
-        <script src="layui/layui.js" charset="utf-8"></script>
     <body>
 <div class="place">
     <span>位置：</span>
@@ -146,4 +143,15 @@
     </div>
 
 	</body>
+	
+	<script type="text/javascript">
+	  function modifyBook(param){
+			  document.location="${pageContext.request.contextPath}/book/modifyBook?lsbn="+param
+	  }
+	
+	  function delBook(param){
+		 if(window.confirm("您确定要删除这本书吗？"))
+			  document.location="${pageContext.request.contextPath}/book/deleteBook?lsbn="+param
+	  }
+	  </script>
 </html>

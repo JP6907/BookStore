@@ -14,11 +14,8 @@
 		<base href="${basePath}">
 		<meta charset="UTF-8">
 		<title>后台管理系统</title>
-         <link rel="stylesheet" href="layui/css/layui.css"  media="all">
 		<link href="jsp/css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="jsp/js/jquery.js"></script></head>
-	     <script src="layer/layer.js"></script>
-        <script src="layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="jsp/js/jquery.js"></script></head>
     <body>
 <div class="place">
     <span>位置：</span>

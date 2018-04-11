@@ -48,11 +48,26 @@ public class BookServiceImpl implements BookService{
 		}
 		return bookMapperCustom.getBookTotalCount(user.getIdentity(),user.getUserid());
 	}
+	@Override
+	public int getBookTotalCountQuery(String lsbn_name_type) throws Exception {
+		// TODO Auto-generated method stub
+		return bookMapperCustom.getBookTotalCountQuery(lsbn_name_type);
+	}
 
 	@Override
 	public int getBookPagetotalNum(int numPerPage,User user) throws Exception {
 		// TODO Auto-generated method stub
 		 int total = this.getBookTotalCount(user);
+		 if(total%numPerPage==0){
+			 return total/numPerPage; 
+		 }else{
+			 return total/numPerPage + 1;
+		 }
+	}
+	@Override
+	public int getBookPagetotalNumQuery(int numPerPage, String lsbn_name_type) throws Exception {
+		// TODO Auto-generated method stub
+		int total = this.getBookTotalCountQuery(lsbn_name_type);
 		 if(total%numPerPage==0){
 			 return total/numPerPage; 
 		 }else{
@@ -118,9 +133,10 @@ public class BookServiceImpl implements BookService{
 	}
 
 	@Override
-	public List<BookCustom> queryBook(String lsbn_name_type) throws Exception {
-		// TODO Auto-generated method stub
-		return bookMapperCustom.queryBookList(lsbn_name_type);
+	public List<BookCustom> queryBookByPage(Integer pageNum, Integer numPerPage, String lsbn_name_type)
+			throws Exception {
+		int startNum = numPerPage*(pageNum-1);
+		return bookMapperCustom.getBookListLimitQuery(lsbn_name_type, startNum, numPerPage);
 	}
 	
 	

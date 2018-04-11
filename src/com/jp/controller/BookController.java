@@ -68,17 +68,29 @@ public class BookController {
 		 		return "login";
 	    }
 	 //搜索书籍
-	 ///////////////
-	 ///暂无分页功能
-	 ///////////////
 	 @RequestMapping("/queryBook")
 	 public String queryBook(@Param("lsbn_name_type")String lsbn_name_type,
 			 				@Param("pageNumNow")Integer pageNumNow,Model model) throws Exception{
 		 
 		 System.out.println("搜索书籍:" + lsbn_name_type);
-		 List<BookCustom> bookList = bookService.queryBook(lsbn_name_type);
+		//默认获取第一页
+		 int page = 1;
+		 	//总页码数
+		 int pageNumTotal = bookService.getBookPagetotalNumQuery(PageUtil.NumPerPageInBack,lsbn_name_type);
+		 	//如果有指定页码
+		 if(pageNumNow!=null){
+		 	page = pageNumNow>=1?pageNumNow:1;
+		 	page = page>pageNumTotal?pageNumTotal:page;
+		 }
+		 
+		 //要显示的页码列表
+		 List<Integer> pageList = PageUtil.getPageNumList(page, pageNumTotal);
+		 model.addAttribute("pageNumTotal", pageNumTotal);  //总页书
+		 model.addAttribute("pageList", pageList);  //要显示的页码列表
+		 model.addAttribute("pageNumNow", page); //当前页码
+		 List<BookCustom> bookList = bookService.queryBookByPage(page, PageUtil.NumPerPageInBack,lsbn_name_type);
 		 model.addAttribute("bookList", bookList);
-		 return "book_list";
+		 return "back/book/book_list";
 	 }
 	
 	//获取图书详情
@@ -165,7 +177,7 @@ public class BookController {
 		
 		model.addAttribute("bookCustom", bookCustom);
 		 
-		return "back/book/book_modify"; 
+		return "forward:/book/toBookList"; 
 	 }
 	 
 	 //删除书籍

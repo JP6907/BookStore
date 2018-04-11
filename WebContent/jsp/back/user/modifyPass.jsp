@@ -53,8 +53,6 @@
 			</div>
 		</div>
 	</div>
-<script src="../kingediter/kindeditor-all-min.js"></script>
-<script src="../js/laydate.js"></script>
 <script type="text/javascript">
 $(function(){
 	
@@ -115,7 +113,7 @@ $(function(){
 		    			 }, 2000); */
 	 	    	 }else{
 	 	    		//layer.msg('用户名密码不对！', {icon: 1});
-	 	    		alert('用户名密码不对！');
+	 	    		alert('用户名密码不正确！');
 	 	    	 }
 	 	       }
 	 	}); 

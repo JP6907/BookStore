@@ -21,8 +21,12 @@ public interface BookService {
 	List<BookCustom> getBookListByPage(Integer pageNum,Integer numPerPage, User user) throws Exception;
 	//获取书的总数量
 	int getBookTotalCount(User user) throws Exception;
+	//获取书的总数量
+	int getBookTotalCountQuery(String lsbn_name_type) throws Exception;
 	//获取书的页数
 	int getBookPagetotalNum(int numPerPage,User user) throws Exception;
+	//获取书的页数
+	int getBookPagetotalNumQuery(int numPerPage,String lsbn_name_type) throws Exception;
 	//添加书籍
 	void addBook(BookCustom bookCustom,MultipartFile image, String imagePath) throws Exception;
 	//删除书籍
@@ -32,5 +36,5 @@ public interface BookService {
 	
 	void modifyBook(BookCustom bookCustom) throws Exception;
 	//根据lsbn编号，书名，或类型搜索
-	List<BookCustom> queryBook(String lsbn_name_type) throws Exception;
+	List<BookCustom> queryBookByPage(Integer pageNum,Integer numPerPage,String lsbn_name_type) throws Exception;
 }

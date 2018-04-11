@@ -52,11 +52,32 @@
   		order by orderBy desc limit #{startNum},#{num} 
   	</select>
   	
+  	
+  	<select id="getBookListLimitQuery"
+        resultType="com.jp.po.BookCustom">
+  		select * from book 
+  		<where>
+  		    lsbn like '%${lsbn_name_type}%'
+  		    or name like '%${lsbn_name_type}%'
+  		    or type like '%${lsbn_name_type}%'
+  		</where>
+  		order by orderBy desc limit #{startNum},#{num} 
+  	</select>
+  	
   	<select id="getBookTotalCount"  resultType="java.lang.Integer">
   		select count(*) from book
   		<if test="identity=='user'">
   		    where userid = #{userid}
 		</if>
+  	</select>
+  	
+  	<select id="getBookTotalCountQuery"  resultType="java.lang.Integer">
+  		select count(*) from book
+  		<where>
+  		    lsbn like '%${lsbn_name_type}%'
+  		    or name like '%${lsbn_name_type}%'
+  		    or type like '%${lsbn_name_type}%'
+  		</where>
   	</select>
   	
   	<select id="selectByOrderid"  parameterType="java.lang.String"  resultType="com.jp.po.BookCustom">
