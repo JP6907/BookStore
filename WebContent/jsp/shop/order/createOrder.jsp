@@ -18,18 +18,22 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/order/createOrder.css'/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/top.css?version=20180329'/>">
 	<script src="<c:url value='/jsp/shop/jquery/jquery-1.5.1.js'/>"></script>
 	<script src="<c:url value='/jsp/shop/js/round.js'/>"></script>
 	<script type="text/javascript" src="/jsp/js/json2.js"></script>
 <style type="text/css">
 #addr{width: 500px; height: 32px;border: 1px solid #7f9db9; padding-left: 10px; line-height: 32px;}
+body{
+	margin:0px;
+}	
 </style>
 
 	<script type="text/javascript">
 	//计算合计
 	$(function() {
 		var total = 0;
-		$(".subtotal").each(function() {
+		$(".Subtotal").each(function() {
 			total += Number($(this).text());
 		});
 		$("#total").text(round(total, 2));
@@ -38,6 +42,37 @@
   </head>
 	
   <body>
+  <div class="listmain">
+  <div class="listTop" style="font-size: 10pt;">
+		<div class="current">&nbsp;当前位置：
+			<a href="${pageContext.request.contextPath}/bookShop/toBookList" style="color:#6E6E6E;">书店</a> &gt;      
+			<a href="#" style="color:#6E6E6E;">创建新订单</a>
+			<!-- <a href="#" style="float:right;margin-right:10px">退出</a> -->
+			<div style="float:right;margin-right:5px">
+			<%-- 根据用户是否登录，显示不同的链接 --%>
+			<c:choose>
+				<c:when test="${empty sessionScope.user }">
+					  <%-- <a href="<c:url value='/jsps/user/login.jsp'/>" target="_parent">会员登录</a> |&nbsp; 
+					  <a href="<c:url value='/jsps/user/regist.jsp'/>" target="_parent">注册会员</a>	 --%>
+					  <a href="${pageContext.request.contextPath}/jsp/shop/body.jsp" >登录</a> |&nbsp; 
+					  <a href="#" >注册</a>	
+				</c:when>
+				<c:otherwise>
+					      您好：${sessionScope.user.username }&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="${pageContext.request.contextPath}/cartitem/getCartitem" >
+					  			我的购物车</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="<c:url value='/order/toOrderList'/>" >我的订单</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					  <a href="${pageContext.request.contextPath}/user/loginout" >退出</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				</c:otherwise>
+			</c:choose>
+		</div>
+		</div>
+		
+		
+		
+		<h1 style="text-align: center;">二手旧书网</h1>
+	</div>
+	<div>
   <c:choose>
   	<c:when test="${empty itemList }">空空如也~</c:when>
   	<c:otherwise>
@@ -97,6 +132,8 @@
 </form>
   	</c:otherwise>
   </c:choose>
+  </div>
+  </div>
   </body>
   
   <script type="text/javascript">

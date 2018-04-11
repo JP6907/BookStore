@@ -78,6 +78,32 @@ public class BookshopController {
 		 return "shop/book/desc";
 	 }
 	
+	//搜索书籍
+	@RequestMapping("/queryBook")
+	public String queryBook(@Param("lsbn_name_type")String lsbn_name_type,
+			 				@Param("pageNumNow")Integer pageNumNow,Model model) throws Exception{
+			 
+		 System.out.println("前台搜索书籍:" + lsbn_name_type);
+		//默认获取第一页
+		 int page = 1;
+		 	//总页码数
+		 int pageNumTotal = bookService.getBookPagetotalNumQuery(PageUtil.NumPerPageInFront,lsbn_name_type);
+		 	//如果有指定页码
+		 if(pageNumNow!=null){
+		 	page = pageNumNow>=1?pageNumNow:1;
+		 	page = page>pageNumTotal?pageNumTotal:page;
+		 }
+		 
+		 //要显示的页码列表
+		 List<Integer> pageList = PageUtil.getPageNumList(page, pageNumTotal);
+		 model.addAttribute("pageNumTotal", pageNumTotal);  //总页书
+		 model.addAttribute("pageList", pageList);  //要显示的页码列表
+		 model.addAttribute("pageNumNow", page); //当前页码
+		 List<BookCustom> bookList = bookService.queryBookByPage(page, PageUtil.NumPerPageInBack,lsbn_name_type);
+		 model.addAttribute("bookList", bookList);
+		 return "shop/book/list";
+	 }
+	
 //	public void testOrderService() throws Exception{
 //		System.out.println("测试orderservice");
 //		List<OrderCustom> orderList = orderService.selectOrdersByUserid("1");

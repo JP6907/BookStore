@@ -18,14 +18,19 @@
 	-->
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/order/desc.css?version=20180334'/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/top.css?version=20180329'/>">
+	<style type="text/css">
+body{
+	margin:0px;
+}	
+</style>
   </head>
   
 <body>
 <div class="listmain">
 	<div class="listTop" style="font-size: 10pt;">
 		<div class="current">&nbsp;当前位置：
-			<a href="javascript:void(0)" style="color:#6E6E6E;">书店</a> &gt;      
-			<a href="javascript:void(0)" style="color:#6E6E6E;">图书列表</a>
+			<a href="${pageContext.request.contextPath}/bookShop/toBookList" style="color:#6E6E6E;">书店</a> &gt;      
+			<a href="#" style="color:#6E6E6E;">订单详情</a>
 			<!-- <a href="#" style="float:right;margin-right:10px">退出</a> -->
 			<div style="float:right;margin-right:5px">
 			<%-- 根据用户是否登录，显示不同的链接 --%>
@@ -37,17 +42,18 @@
 					  <a href="#" >注册</a>	
 				</c:when>
 				<c:otherwise>
-					      您好：${sessionScope.user.loginname }&nbsp;&nbsp;|&nbsp;&nbsp;
+					      您好：${sessionScope.user.username }&nbsp;&nbsp;|&nbsp;&nbsp;
 					  <a href="${pageContext.request.contextPath}/cartitem/getCartitem" >
 					  			我的购物车</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 					  <a href="<c:url value='/order/toOrderList'/>" >我的订单</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-					  <a href="<c:url value='#'/>" >修改密码</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 					  <a href="${pageContext.request.contextPath}/user/loginout" >退出</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:otherwise>
 			</c:choose>
 		</div>
 		</div>
-			
+		
+		
+		
 		<h1 style="text-align: center;">二手旧书网</h1>
 	</div>
 	<div class="divOrder">
@@ -80,7 +86,7 @@
 							<td class="td" width="400px">
 								<div class="bookname">
 								  <img align="middle" width="70" src="<c:url value='/book_img/${book.imageb }'/>"/>
-								  <a href="<c:url value='/BookServlet?method=load&bid=${item.book.bid }'/>">${book.name }</a>
+								  <a href="<c:url value='/bookShop/getBookItems?lsbn=${book.lsbn }'/>">${book.name }</a>
 								</div>
 							</td>
 							<td class="td" >

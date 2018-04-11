@@ -18,16 +18,19 @@
 	-->
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/order/list.css'/>" />
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/top.css?version=20180329'/>">
-<%-- 	<link rel="stylesheet" type="text/css" href="<c:url value='/jsps/pager/pager.css'/>" /> --%>
-<%--     <script type="text/javascript" src="<c:url value='/jsps/pager/pager.js'/>"></script> --%>
+<style type="text/css">
+body{
+	margin:0px;
+}	
+</style>
   </head>
   
   <body>
   <div class="listmain">
 	<div class="listTop" style="font-size: 10pt;">
 		<div class="current">&nbsp;当前位置：
-			<a href="javascript:void(0)" style="color:#6E6E6E;">书店</a> &gt;      
-			<a href="javascript:void(0)" style="color:#6E6E6E;">图书列表</a>
+			<a href="${pageContext.request.contextPath}/bookShop/toBookList" style="color:#6E6E6E;">书店</a> &gt;      
+			<a href="#" style="color:#6E6E6E;">我的订单</a>
 			<!-- <a href="#" style="float:right;margin-right:10px">退出</a> -->
 			<div style="float:right;margin-right:5px">
 			<%-- 根据用户是否登录，显示不同的链接 --%>
@@ -39,17 +42,18 @@
 					  <a href="#" >注册</a>	
 				</c:when>
 				<c:otherwise>
-					      您好：${sessionScope.user.loginname }&nbsp;&nbsp;|&nbsp;&nbsp;
+					      您好：${sessionScope.user.username }&nbsp;&nbsp;|&nbsp;&nbsp;
 					  <a href="${pageContext.request.contextPath}/cartitem/getCartitem" >
 					  			我的购物车</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 					  <a href="<c:url value='/order/toOrderList'/>" >我的订单</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-					  <a href="<c:url value='#'/>" >修改密码</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 					  <a href="${pageContext.request.contextPath}/user/loginout" >退出</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:otherwise>
 			</c:choose>
 		</div>
 		</div>
-			
+		
+		
+		
 		<h1 style="text-align: center;">二手旧书网</h1>
 	</div>
 	<center>
@@ -79,7 +83,7 @@
 
 
   <c:forEach items="${order.bookList }" var="book">
-	<a class="link2" href="<c:url value='/BookServlet?method=load&bid=${orderItem.book.bid }'/>">
+	<a class="link2" href="<c:url value='/bookShop/getBookItems?lsbn=${book.lsbn }'/>">
 	    <img border="0" width="70" src="${pageContext.request.contextPath}/book_img/${book.imageb }"/>
 	</a>
   </c:forEach>
@@ -92,7 +96,7 @@
 				(${order.status })
 			</td>
 			<td>
-			<a href="<c:url value='#'/>">查看</a><br/>
+			<a href="<c:url value='/order/getOrderItems?orderid=${order.orderid }'/>">查看</a><br/>
 <c:if test="${order.status eq '未付款' }">
 				<a href="<c:url value='#'/>">支付</a><br/>
 				<a href="<c:url value='#'/>">取消</a><br/>						

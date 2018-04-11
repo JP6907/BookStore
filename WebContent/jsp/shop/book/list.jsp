@@ -35,8 +35,8 @@
 <div class="listmain">
 	<div class="listTop" style="font-size: 10pt;">
 		<div class="current">&nbsp;当前位置：
-			<a href="javascript:void(0)" style="color:#6E6E6E;">书店</a> &gt;      
-			<a href="javascript:void(0)" style="color:#6E6E6E;">图书列表</a>
+			<a href="${pageContext.request.contextPath}/bookShop/toBookList" style="color:#6E6E6E;">书店</a> &gt;      
+			<a href="${pageContext.request.contextPath}/bookShop/toBookList" style="color:#6E6E6E;">图书列表</a>
 			<!-- <a href="#" style="float:right;margin-right:10px">退出</a> -->
 			<div style="float:right;margin-right:5px">
 			<%-- 根据用户是否登录，显示不同的链接 --%>
@@ -48,11 +48,10 @@
 					  <a href="#" >注册</a>	
 				</c:when>
 				<c:otherwise>
-					      您好：${sessionScope.user.loginname }&nbsp;&nbsp;|&nbsp;&nbsp;
+					      您好：${sessionScope.user.username }&nbsp;&nbsp;|&nbsp;&nbsp;
 					  <a href="${pageContext.request.contextPath}/cartitem/getCartitem" >
 					  			我的购物车</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 					  <a href="<c:url value='/order/toOrderList'/>" >我的订单</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-					  <a href="<c:url value='#'/>" >修改密码</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 					  <a href="${pageContext.request.contextPath}/user/loginout" >退出</a>&nbsp;&nbsp;&nbsp;&nbsp;
 				</c:otherwise>
 			</c:choose>
@@ -64,10 +63,10 @@
 		<h1 style="text-align: center;">二手旧书网</h1>
 	</div>
 	<div class="search d1">
-	  <form>
+	  <form action="${pageContext.request.contextPath}/bookShop/queryBook">
 	  		<%-- <a href="javascript:document.getElementById('form1').submit();"><img align="top" border="0" src="../shop/images/btn.bmp"/></a>
     		<a href="<c:url value='/shop/gj.jsp'/>" style="font-size: 10pt; color: #404040;" target="body">高级搜索</a> --%>
-		  <input type="text" placeholder=" lsbn/类型/书名...">
+		  <input id="lsbn_name_type" name="lsbn_name_type" type="text" placeholder=" lsbn/类型/书名...">
 		  <button type="submit"></button>
 	  </form>
 	</div>
@@ -83,17 +82,15 @@
 				<span class="price_r">&yen;${book.price }</span>
 				(<span class="price_s">${book.discount }折</span>)
 			</p>
-			<p><a id="bookname" title="${book.name }" href="<c:url value='/BookServlet?method=load&bid=${book.lsbn }'/>">${book.name }</a></p>
+			<p><a id="bookname" title="${book.name }" href="<c:url value='#'/>">${book.name }</a></p>
 			<%-- url标签会自动对参数进行url编码 --%>
-			<c:url value="/BookServlet" var="authorUrl">
-				<c:param name="method" value="findByAuthor"/>
+			<c:url value="#" var="authorUrl">
 				<c:param name="author" value="${book.author }"/>
 			</c:url>
-			<c:url value="/BookServlet" var="pressUrl">
-				<c:param name="method" value="findByPress"/>
+			<c:url value="#" var="pressUrl">
 				<c:param name="press" value="${book.press }"/>
 			</c:url>
-			<p><a href="${authorUrl }" name='P_zz' title='${book.author }'>${book.author }</a></p>
+			<p><a href="#" name='P_zz' title='${book.author }'>${book.author }</a></p>
 			<p class="publishing">
 				<span>出 版 社：</span><a href="${pressUrl }">${book.press }</a>
 			</p>
@@ -139,25 +136,25 @@
 			  <h2><a href="#" class="more">更多</a>销售排行榜</h2>
 			  <div class="rankinner">
 			    <ul class="rank_list">
-			        <li class="top3"><em>1</em><a title="Java Web整合开发实战" target="_blank" href="#">
+			        <li class="top3"><em>1</em><a title="Java Web整合开发实战"  href="#">
 			Java Web整合开发实</a><span>621</span></li>
-				    <li class="top3"><em>2</em><a title="OSGi实战" target="_blank" href="#">
+				    <li class="top3"><em>2</em><a title="OSGi实战" href="#">
 			OSGi实战</a><span>589</span></li>
-					<li class="top3"><em>3</em><a title="Java核心技术：卷Ⅰ基础知识（原书第8版）" target="_blank" href="#">
+					<li class="top3"><em>3</em><a title="Java核心技术：卷Ⅰ基础知识（原书第8版）"   href="#">
 			Java核心技术：卷Ⅰ基础知识（原书第8版）</a><span>532</span></li>
-					<li  ><em>4</em><a title="Java7入门经典" target="_blank" href="#">
+					<li  ><em>4</em><a title="Java7入门经典"   href="#">
 			Java7入门经典</a><span>456</span></li>
-					<li  ><em>5</em><a title="Java深入解析——透析Java本质的36个话题" target="_blank" href="#">
+					<li  ><em>5</em><a title="Java深入解析——透析Java本质的36个话题"   href="#">
 			Java深入解析——透析Java本质的36个话题</a><span>431</span></li>
-					<li  ><em>6</em><a title="Struts2技术内幕：深入解析Struts架构设计与实现原理" target="_blank" href="#">
+					<li  ><em>6</em><a title="Struts2技术内幕：深入解析Struts架构设计与实现原理"   href="#">
 			Struts2技术内幕：深入解析Struts架构设计与实现原理</a><span>387</span></li>
-					<li  ><em>7</em><a title="Tomcat与Java Web开发技术详解（第2版）" target="_blank" href="#">
+					<li  ><em>7</em><a title="Tomcat与Java Web开发技术详解（第2版）"   href="#">
 			Tomcat与Java Web开发技术详解（第2版）</a><span>335</span></li>
-					<li  ><em>8</em><a title="基于MVC的JavaScript Web富应用开发" target="_blank" href="#">
+					<li  ><em>8</em><a title="基于MVC的JavaScript Web富应用开发"   href="#">
 			基于MVC的JavaScript Web富应用开发</a><span>256</span></li>
-					<li  ><em>9</em><a title="HTML5+JavaScript动画基础" target="_blank" href="#">
+					<li  ><em>9</em><a title="HTML5+JavaScript动画基础"   href="#">
 			HTML5+JavaScript动画基础</a><span>153</span></li>
-					<li  ><em>10</em><a title="深入浅出Ext JS(第3版)" target="_blank" href="#">
+					<li  ><em>10</em><a title="深入浅出Ext JS(第3版)"   href="#">
 			深入浅出Ext JS(第3版)</a><span>78</span></li>
 			    </ul>
 			  </div>
@@ -171,25 +168,25 @@
 			  <h2><a href="#" class="more">更多</a>人气排行榜</h2>
 			  <div class="rankinner">
 			    <ul class="rank_list">
-			    	<li class="top3"><em>1</em><a title="Tomcat与Java Web开发技术详解（第2版）" target="_blank" href="#">
+			    	<li class="top3"><em>1</em><a title="Tomcat与Java Web开发技术详解（第2版）"   href="#">
 			Tomcat与Java Web开发技术详解（第2版）</a><span>335</span></li>
-			        <li class="top3"><em>2</em><a title="Java Web整合开发实战" target="_blank" href="#">
+			        <li class="top3"><em>2</em><a title="Java Web整合开发实战"   href="#">
 			Java Web整合开发实</a><span>621</span></li>
-					<li class="top3"><em>3</em><a title="基于MVC的JavaScript Web富应用开发" target="_blank" href="#">
+					<li class="top3"><em>3</em><a title="基于MVC的JavaScript Web富应用开发"   href="#">
 			基于MVC的JavaScript Web富应用开发</a><span>256</span></li>
-				    <li  ><em>4</em><a title="Struts2技术内幕：深入解析Struts架构设计与实现原理" target="_blank" href="#">
+				    <li  ><em>4</em><a title="Struts2技术内幕：深入解析Struts架构设计与实现原理"   href="#">
 			Struts2技术内幕：深入解析Struts架构设计与实现原理</a><span>387</span></li>
-					<li ><em>5</em><a title="Java核心技术：卷Ⅰ基础知识（原书第8版）" target="_blank" href="#">
+					<li ><em>5</em><a title="Java核心技术：卷Ⅰ基础知识（原书第8版）"   href="#">
 			Java核心技术：卷Ⅰ基础知识（原书第8版）</a><span>532</span></li>
-					<li  ><em>6</em><a title="深入浅出Ext JS(第3版)" target="_blank" href="#">
+					<li  ><em>6</em><a title="深入浅出Ext JS(第3版)"   href="#">
 			深入浅出Ext JS(第3版)</a><span>78</span></li>
-					<li  ><em>7</em><a title="Java深入解析——透析Java本质的36个话题" target="_blank" href="#">
+					<li  ><em>7</em><a title="Java深入解析——透析Java本质的36个话题"   href="#">
 			Java深入解析——透析Java本质的36个话题</a><span>431</span></li>
-					<li  ><em>8</em><a title="Java7入门经典" target="_blank" href="#">
+					<li  ><em>8</em><a title="Java7入门经典"   href="#">
 			Java7入门经典</a><span>456</span></li>
-					<li  ><em>9</em><a title="HTML5+JavaScript动画基础" target="_blank" href="#">
+					<li  ><em>9</em><a title="HTML5+JavaScript动画基础"   href="#">
 			HTML5+JavaScript动画基础</a><span>153</span></li>
-					<li ><em>10</em><a title="OSGi实战" target="_blank" href="#">
+					<li ><em>10</em><a title="OSGi实战"   href="#">
 			OSGi实战</a><span>589</span></li>
 					
 			    </ul>

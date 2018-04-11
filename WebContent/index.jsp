@@ -16,13 +16,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </head>
  
  <body>
-	<h1>Jsp File</h1><hr>
-	后台访问：login 
+ 	<center>
+	<h1>二手书店</h1><hr>
+	<a href="${pageContext.request.contextPath}/login">进入后台管理系统</a>
+	<br>
+	<br>
+	<br>
+	<a href="${pageContext.request.contextPath}/jsp/shop/body.jsp">进入书店页面</a>
+	<br>
+	<br>
 	<br>
 	书店页面：jsp/shop/main.jsp  （为什么这里 FormController 不会生效）
 	<br>
 	去边框： jsp/shop/body.jsp
 	<br>
+	</center>
 
  </body>
  
