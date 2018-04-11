@@ -18,11 +18,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <body>
  	<center>
 	<h1>二手书店</h1><hr>
-	<a href="${pageContext.request.contextPath}/login">进入后台管理系统</a>
+	<a href="javascript:toManageSystem();">进入后台管理系统</a>
 	<br>
 	<br>
 	<br>
-	<a href="${pageContext.request.contextPath}/jsp/shop/body.jsp">进入书店页面</a>
+	<a href="javascript:toShop();">进入书店页面</a>
 	<br>
 	<br>
 	<br>
@@ -33,5 +33,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</center>
 
  </body>
+ <script type="text/javascript">
+ 	function toShop(){
+ 		document.location="jsp/shop/login.jsp"
+ 	}
+ 	function toManageSystem(){
+ 		document.location="${pageContext.request.contextPath}/login"
+ 	}
+ </script>
  
 </html>
