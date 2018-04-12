@@ -63,10 +63,10 @@
 		<h1 style="text-align: center;">二手旧书网</h1>
 	</div>
 	<div class="search d1">
-	  <form action="${pageContext.request.contextPath}/bookShop/queryBook">
+	  <form id="searchForm" action="${pageContext.request.contextPath}/bookShop/queryBook">
 	  		<%-- <a href="javascript:document.getElementById('form1').submit();"><img align="top" border="0" src="../shop/images/btn.bmp"/></a>
     		<a href="<c:url value='/shop/gj.jsp'/>" style="font-size: 10pt; color: #404040;" target="body">高级搜索</a> --%>
-		  <input id="lsbn_name_type" name="lsbn_name_type" type="text" placeholder=" lsbn/类型/书名...">
+		  <input id="lsbn_name_type" name="lsbn_name_type" type="text" placeholder=" lsbn/类型/书名..." value="${lsbn_name_type }" />
 		  <button type="submit"></button>
 	  </form>
 	</div>
@@ -105,20 +105,20 @@
 	<div class="page" >
 		<table style="font-family:FZYaoti;font-size:14px;width:100%;">
 	    	<tr style="height:30px;float:right">
-				<td width="40"><a href = "${pageContext.request.contextPath}/bookShop/toBookList?pageNumNow=1" >首页</a></td>
-				<td width="50"><a href = "${pageContext.request.contextPath}/bookShop/toBookList?pageNumNow=${pageNumNow-1 }" >上一页 </a></td>
+				<td width="40"><a href = "javascript:toBookListByPage(1)" >首页</a></td>
+				<td width="50"><a href = "javascript:toBookListByPage(${pageNumNow-1 })" >上一页 </a></td>
 			<c:forEach items="${requestScope.pageList }" var="pageNum">
 				<c:choose>
 				<c:when test="${pageNumNow eq pageNum }">
-					<td width="20" ><a style="color:#000000" href = "${pageContext.request.contextPath}/bookShop/toBookList?pageNumNow=${pageNum }" >${pageNum }</a></td>
+					<td width="20" ><a style="color:#000000" href = "javascript:toBookListByPage(${pageNum })" >${pageNum }</a></td>
 				</c:when>
 				<c:otherwise>
-					<td width="20" ><a href = "${pageContext.request.contextPath}/bookShop/toBookList?pageNumNow=${pageNum }" >${pageNum }</a></td>
+					<td width="20" ><a href = "javascript:toBookListByPage(${pageNum })" >${pageNum }</a></td>
 				</c:otherwise>
 				</c:choose>
 			</c:forEach>
-				<td width="50"><a href = "${pageContext.request.contextPath}/bookShop/toBookList?pageNumNow=${pageNumNow+1 }" >下一页</a></td>
-				<td width="50"><a href = "${pageContext.request.contextPath}/bookShop/toBookList?pageNumNow=${pageNumTotal }" >尾页</a></td>
+				<td width="50"><a href = "javascript:toBookListByPage(${pageNumNow+1 })" >下一页</a></td>
+				<td width="50"><a href = "javascript:toBookListByPage(${pageNumTotal })" >尾页</a></td>
 				<td>第${pageNumNow }页/共${requestScope.pageNumTotal }页 </td>
 			</tr>	
 		</table>
@@ -198,5 +198,23 @@
 
   </body>
  
+ <script type="text/javascript">
+ 	//按条件搜索后翻页问题
+ 	function toBookListByPage(pageNum){
+ 		var lsbn_name_type = $('#lsbn_name_type').val();
+ 		if(lsbn_name_type==""){//先判断搜索框内是否有搜索条件，无则直接翻页
+ 			window.location.href = "${pageContext.request.contextPath}/bookShop/toBookList?pageNumNow="+pageNum
+ 		}else{//有条件，先追加页码参数，后提交搜索框的form
+ 			var searchForm=$('#searchForm'); //得到form对象
+ 	        var tmpInput=$("<input type='text' name='pageNumNow'/>");
+ 	        tmpInput.attr("value", pageNum);
+ 	        searchForm.append(tmpInput);
+ 	        searchForm.submit();
+ 			/* document.getElementById("searchForm").action="${pageContext.request.contextPath}/bookShop/queryBook?pageNumNow="+pageNum+"&lsbn_name_type="+lsbn_name_type
+ 			debugger
+ 			document.getElementById("searchForm").submit(); */
+ 		}
+ 	}
+ </script>
 </html>
 

@@ -33,7 +33,7 @@
     		<tr>
     			<td>
     				<li><label>&nbsp;&nbsp;综合查询</label>
-    				<input name="lsbn_name_type" id="lsbn_name_type" type="text" class="scinput" placeholder="lsbn编号/书名/图书类型"/>
+    				<input name="lsbn_name_type" id="lsbn_name_type" type="text" class="scinput" placeholder="lsbn编号/书名/图书类型" value="${lsbn_name_type }"/>
     				</li>
     			</td>
     			<td>&nbsp;&nbsp;</td>
@@ -105,8 +105,8 @@
 	         </td>         
 	        <td width="12%">
 	        	<c:choose>	
-		    		<c:when test="${fn:length(book.author) >= 15}">     		
-		        		<span class="spa2" title="${book.author}">${fn:substring(book.author,0,15)}……</span>
+		    		<c:when test="${fn:length(book.author) >= 7}">     		
+		        		<span class="spa2" title="${book.author}">${fn:substring(book.author,0,7)}……</span>
 		     		</c:when>
 			     	<c:otherwise>
 			         	<span class="spa2" title="${book.author}">${book.author}</span>
@@ -129,13 +129,13 @@
     
     <table style="float:right;">
     	<tr>
-			<td width="30"><a href = "${pageContext.request.contextPath}/book/toBookList?pageNumNow=1" >首页</a></td>
-			<td width="50"><a href = "${pageContext.request.contextPath}/book/toBookList?pageNumNow=${pageNumNow-1 }" >上一页 </a></td>
+			<td width="30"><a href = "javascript:toBookListByPage(1)" >首页</a></td>
+			<td width="50"><a href = "javascript:toBookListByPage(${pageNumNow-1 })" >上一页 </a></td>
 		<c:forEach items="${requestScope.pageList }" var="pageNum">
-			<td width="20" ><a href = "${pageContext.request.contextPath}/book/toBookList?pageNumNow=${pageNum }" >${pageNum }</a></td>
+			<td width="20" ><a href = "javascript:toBookListByPage(${pageNum })" >${pageNum }</a></td>
 		</c:forEach>
-			<td width="50"><a href = "${pageContext.request.contextPath}/book/toBookList?pageNumNow=${pageNumNow+1 }" >下一页</a></td>
-			<td width="50"><a href = "${pageContext.request.contextPath}/book/toBookList?pageNumNow=${pageNumTotal }" >尾页</a></td>
+			<td width="50"><a href = "javascript:toBookListByPage(${pageNumNow+1 })" >下一页</a></td>
+			<td width="50"><a href = "javascript:toBookListByPage(${pageNumTotal })" >尾页</a></td>
 			<td>第${pageNumNow }页/共${requestScope.pageNumTotal }页 </td>
 		</tr>	
 	</table>
@@ -153,5 +153,24 @@
 		 if(window.confirm("您确定要删除这本书吗？"))
 			  document.location="${pageContext.request.contextPath}/book/deleteBook?lsbn="+param
 	  }
+	  
+	//按条件搜索后翻页问题
+	 function toBookListByPage(pageNum){
+	 	var lsbn_name_type = $('#lsbn_name_type').val();
+	 	if(lsbn_name_type==""){//先判断搜索框内是否有搜索条件，无则直接翻页
+	 		window.location.href = "${pageContext.request.contextPath}/book/toBookList?pageNumNow="+pageNum
+	 	}else{//有条件，先追加页码参数，后提交搜索框的form
+	 		var searchForm=$('#searchForm'); //得到form对象
+	         var tmpInput=$("<input type='text' name='pageNumNow'/>");
+	         tmpInput.attr("value", pageNum);
+	         searchForm.append(tmpInput);
+	         searchForm.submit();
+	 		/* document.getElementById("searchForm").action="${pageContext.request.contextPath}/bookShop/queryBook?pageNumNow="+pageNum+"&lsbn_name_type="+lsbn_name_type
+	 		debugger
+	 		document.getElementById("searchForm").submit(); */
+	 	}
+	 }
 	  </script>
+	  
+	  
 </html>

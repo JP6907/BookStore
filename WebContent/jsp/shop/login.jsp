@@ -9,7 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>后台管理系统</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <script type="text/javascript" src="js/login/jquery-1.9.0.min.js"></script>
 <script type="text/javascript" src="js/login/login.js?version=2018041111"></script>
 <link href="css/login/login.css?version=2018041116" rel="stylesheet" type="text/css" />

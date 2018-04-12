@@ -1,9 +1,10 @@
  @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
  Orders类注解定义时间格式不起作用
  
- 图书搜索 根据条件搜索   ，换页后失去条件限制                   前台后台  搜索问题！！
+	 图书搜索 根据条件搜索   ，换页后失去条件限制                   前台后台  搜索问题！！   
+	    解决：判断搜索框内是否有内容，翻页   获取搜索框参数同时追加页码参数
  
-创建订单页面计算总价格失效  shop/order/createOrder.jsp    $(".Subtotal").each(function() {
-back/order/orederlist.jsp    $("#20status").change(function() {
+	创建订单页面计算总价格失效  shop/order/createOrder.jsp    $(".Subtotal").each(function() {
+	back/order/orederlist.jsp    $("#20status").change(function() {
 
 shop/js/login/login.js    失去焦点

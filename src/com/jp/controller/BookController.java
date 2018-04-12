@@ -90,6 +90,7 @@ public class BookController {
 		 model.addAttribute("pageNumNow", page); //当前页码
 		 List<BookCustom> bookList = bookService.queryBookByPage(page, PageUtil.NumPerPageInBack,lsbn_name_type);
 		 model.addAttribute("bookList", bookList);
+		 model.addAttribute("lsbn_name_type", lsbn_name_type);
 		 return "back/book/book_list";
 	 }
 	

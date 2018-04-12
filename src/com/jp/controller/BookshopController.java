@@ -83,7 +83,7 @@ public class BookshopController {
 	public String queryBook(@Param("lsbn_name_type")String lsbn_name_type,
 			 				@Param("pageNumNow")Integer pageNumNow,Model model) throws Exception{
 			 
-		 System.out.println("前台搜索书籍:" + lsbn_name_type);
+		 System.out.println("前台搜索书籍:" + lsbn_name_type + "页码：" + pageNumNow);
 		//默认获取第一页
 		 int page = 1;
 		 	//总页码数
@@ -99,7 +99,8 @@ public class BookshopController {
 		 model.addAttribute("pageNumTotal", pageNumTotal);  //总页书
 		 model.addAttribute("pageList", pageList);  //要显示的页码列表
 		 model.addAttribute("pageNumNow", page); //当前页码
-		 List<BookCustom> bookList = bookService.queryBookByPage(page, PageUtil.NumPerPageInBack,lsbn_name_type);
+		 model.addAttribute("lsbn_name_type", lsbn_name_type); //当前搜索框内容
+		 List<BookCustom> bookList = bookService.queryBookByPage(page, PageUtil.NumPerPageInFront,lsbn_name_type);
 		 model.addAttribute("bookList", bookList);
 		 return "shop/book/list";
 	 }
