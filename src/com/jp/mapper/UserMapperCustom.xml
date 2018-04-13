@@ -23,5 +23,10 @@
 	        </if>
   		</where>
   	</select>
+  	
+  <select id="selectByLoginname" resultType="com.jp.po.User">
+  		select count(*) from user 
+  		WHERE loginname = '${loginname}' 
+  </select>
   
 </mapper>

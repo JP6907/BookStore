@@ -58,13 +58,49 @@ var reMethod = "GET",
 	pwdmin = 6;
 
 $(document).ready(function() {
+	
+	$('#loginInFront').click(function() {
+		if ($('#loginnamelog').val() == "") {
+			$('#loginnamelog').focus().css({
+				border: "1px solid red",
+				boxShadow: "0 0 2px red"
+			});
+			$('#userCueLogin').html("<font color='red'><b><center>&nbsp;&nbsp;×请输入账号！</center></b></font>");
+			return false;
+		}
+
+		if ($('#passwordlog').val() == "") {
+			$('#passwordlog').focus();
+			$('#userCueLogin').html("<font color='red'><b><center>&nbsp;&nbsp;×请输入密码！</center></b></font>");
+			return false;
+		}
+		
+		var params = {
+				"loginname":$('#loginnamelog').val(),
+				"password":$('#passwordlog').val()
+		    };
+		
+		$.ajax({
+		       type:"POST",
+		       ansyc:false,
+		       url:getRootPath()+"/user/login",
+		       dataType:"json",
+		       contentType : 'application/json;charset=UTF-8',
+		       data: JSON.stringify(params),
+			success:function(data) {
+				if(data.flag){
+					$('#userCueLogin').html("<font color='blue'><b><center>&nbsp;&nbsp;√登录成功，正在跳转...</center></b></font>");
+					setTimeout(function(){
+		    			   window.parent.location.href=getRootPath()+"/bookShop/toBookList";
+		    			 }, 500); 
+				}else{
+					$('#userCueLogin').html("<font color='red'><b><center>&nbsp;&nbsp;×账号或密码错误！</center></b></font>");
+				}
+			}
+		});
+	});
 
 	$('#reg').click(function() {
-		
-		$("#username").blur();
-		$("#loginname").blur();
-		$("#passwd").blur();
-		$("#passwd2").blur();
 		
 		if ($('#username').val() == "") {
 			$('#username').focus().css({
@@ -84,18 +120,6 @@ $(document).ready(function() {
 			return false;
 		}
 
-		/*if ($('#username').val().length < 4 || $('#username').val().length > 16) {
-
-			$('#username').focus().css({
-				border: "1px solid red",
-				boxShadow: "0 0 2px red"
-			});
-			$('#userCue').html("<font color='red'><b>×用户名位4-16字符！</b></font>");
-			return false;
-
-		}*/
-
-
 		if ($('#passwd').val().length < pwdmin) {
 			$('#passwd').focus();
 			$('#userCue').html("<font color='red'><b><center>&nbsp;&nbsp;×密码不能小于" + pwdmin + "位！</center></b></font>");
@@ -106,32 +130,33 @@ $(document).ready(function() {
 			$('#userCue').html("<font color='red'><b><center>&nbsp;&nbsp;×两次密码不一致！</center></b></font>");
 			return false;
 		}
-
-		/*$.ajax({
-			type: reMethod,
-			url: "/member/ajaxyz.php",
-			data: "uid=" + $("#user").val() + '&temp=' + new Date(),
-			dataType: 'html',
-			success: function(result) {
-
-				if (result.length > 2) {
-					$('#user').focus().css({
-						border: "1px solid red",
-						boxShadow: "0 0 2px red"
-					});$("#userCue").html(result);
-					return false;
-				} else {
-					$('#user').css({
-						border: "1px solid #D7D7D7",
-						boxShadow: "none"
-					});
+		var params = {
+				"username":$('#username').val(),
+				"loginname":$('#loginname').val(),
+				"password":$('#passwd').val()
+		    };
+		$.ajax({
+		       type:"POST",
+		       ansyc:false,
+		       url:getRootPath()+"/user/register",
+		       dataType:"json",
+		       contentType : 'application/json;charset=UTF-8',
+		       data: JSON.stringify(params),
+			success:function(data) {
+				if(data.flag){
+					$('#userCue').html("<font color='blue'><b><center>&nbsp;&nbsp;√注册成功！！</center></b></font>");
+				}else{
+					$('#userCue').html("<font color='red'><b><center>&nbsp;&nbsp;×账号已存在！</center></b></font>");
 				}
-
 			}
 		});
-
-		$('#regUser').submit();*/
 	});
 	
 
 });
+
+function getRootPath() {  
+    var pathName = window.location.pathname.substring(1);  
+    var webName = pathName == '' ? '' : pathName.substring(0, pathName.indexOf('/'));  
+    return window.location.protocol + '//' + window.location.host + '/' + webName;  
+}

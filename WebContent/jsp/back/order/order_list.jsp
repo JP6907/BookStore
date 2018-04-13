@@ -32,7 +32,9 @@ $(function() {
 		alert("确定要修改该订单状态吗？");
 		 var selected=$(this).children('option:selected').val();
 		 var id = $(this).attr("id");
+		 alert(id);
 		 id = id.substring(0, id.length-6);
+		 alert(id);
 		 sendUpdateStatus(Number(id),selected);
 	});  
 });
@@ -114,7 +116,7 @@ function sendUpdateStatus(id, status) {
                     <td width="35%">${order.orderid }</td>
                     <td width="20%"><fmt:formatDate value='${order.ordertime }' type='date' pattern='yyyy年MM月dd HH:mm:ss'/></td>
                     <td width="20%">
-                    	<select id="${order.id }status" class="scinput status " 
+                    	<select id="${order.id }status" class="scinput status" 
                     		<c:if test="${orderType eq 'purchase' }">disabled="disabled"</c:if>>
 	                    	<c:forEach items="${orderStatusList}" var="curstatus">
 		                	<option value="${curstatus}" <c:if test="${order.status eq curstatus}">selected</c:if> >${curstatus}</option>

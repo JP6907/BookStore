@@ -32,7 +32,7 @@
 			
 				<div class="form-group">
 					<label for="">&nbsp;&nbsp;&nbsp;&nbsp;账号:</label>
-					<input class="form-input-txt" type="text" name="account" id="account" value="${admin.loginname }" />
+					<input class="form-input-txt" type="text" name="account" id="account" disabled="disabled" value="${admin.loginname }" />
 				</div>
                  <div class="form-group">
                     <label for="">&nbsp;&nbsp;旧密码:</label>

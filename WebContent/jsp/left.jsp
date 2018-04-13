@@ -93,8 +93,9 @@ $(function(){
     </ul>
     
     </dd> --> 
-       <dd><div class="title"><span><img src="jsp/images/leftico04.png" /></span>修改密码</div>
+       <dd><div class="title"><span><img src="jsp/images/leftico04.png" /></span>个人信息</div>
     <ul class="menuson">
+    	<li><cite></cite><a href="user/modifyPersonalInformation" target="rightFrame">修改个人资料</a><i></i></li>
         <li><cite></cite><a href="user/modifyPassword" target="rightFrame">修改密码</a><i></i></li>
     </ul>
     

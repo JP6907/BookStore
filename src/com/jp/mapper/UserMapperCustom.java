@@ -15,4 +15,6 @@ public interface UserMapperCustom {
 											@Param("newPassword")String newPassword) throws Exception;
 	
 	public List<User> getUserList(@Param("value")String userid_username_loginname) throws Exception;
+	
+	public List<User> selectByLoginname(@Param("loginname")String loginname) throws Exception;
 }
