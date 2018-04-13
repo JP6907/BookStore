@@ -280,5 +280,16 @@ public class UserController {
 		return "back/user/user_list";
 	}
 	
+	//前台系统跳转到后台系统
+	@RequestMapping(value="/frontToBack")
+	public String frontToBack(Model model,HttpSession session){
+		return "login";
+	}
+	//后台系统跳转到前台系统
+	@RequestMapping(value="/backToFront")
+	public String backToFront(Model model,HttpSession session){
+		return "shop/login";
+	}
+	
 	
 }

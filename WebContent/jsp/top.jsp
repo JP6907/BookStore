@@ -31,6 +31,7 @@ $(function(){
     </div>
     <div class="topright">    
     <ul>
+    <li><a href="user/backToFront" target="_parent">转到前台购书系统</a></li>
     <li><a href="user/manageSystemLoginOut" target="_parent">退出</a></li>
     </ul>
      

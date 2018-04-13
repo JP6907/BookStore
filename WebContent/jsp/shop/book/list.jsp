@@ -48,7 +48,7 @@
 					  <a href="#" >注册</a>	
 				</c:when>
 				<c:otherwise>
-					      您好：${sessionScope.user.username }&nbsp;&nbsp;|&nbsp;&nbsp;
+					      您好：<a href="<c:url value='/user/frontToBack'/>" title="点击跳转到后台管理系统...">${sessionScope.user.username }</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 					  <a href="${pageContext.request.contextPath}/cartitem/getCartitem" >
 					  			我的购物车</a>&nbsp;&nbsp;|&nbsp;&nbsp;
 					  <a href="<c:url value='/order/toOrderList'/>" >我的订单</a>&nbsp;&nbsp;|&nbsp;&nbsp;
