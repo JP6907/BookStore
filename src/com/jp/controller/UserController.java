@@ -106,7 +106,7 @@ public class UserController {
 			 		HttpSession session,PrintWriter pw) throws Exception{
 		
 		System.out.println("用户登陆请求......");
-		boolean flag = false;
+		boolean flag = false; //登录是否成功
 		String loginname = map.get("loginname").toString();
 		String password = map.get("password").toString();
 		User user = userService.login(loginname, password);
@@ -121,7 +121,7 @@ public class UserController {
 			flag = false;
 		}
 		Map<String,Object> mapout = new HashMap<String, Object>();
-		mapout.put("flag", flag);
+		mapout.put("flag", flag);  //返回结果
 		System.out.println(flag);
 		ObjectMapper om = new ObjectMapper();
 		try{

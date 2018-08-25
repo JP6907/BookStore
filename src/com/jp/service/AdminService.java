@@ -4,7 +4,7 @@ import com.jp.po.Admin;
 
 /**
  * @ClassName:  AdminService   
- * @Description:TODO(管理员)   
+ * @Description:TODO(管理员)(无用)   
  * @author      ZJP
  * @date:2018年2月3日 下午2:22:31
  */

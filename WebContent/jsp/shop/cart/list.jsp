@@ -19,7 +19,7 @@
 	<script src="<c:url value='/jsp/shop/jquery/jquery-1.5.1.js'/>"></script>
 	<script src="<c:url value='/jsp/shop/js/round.js'/>"></script>
 	
-	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/cart/list.css'/>">
+	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/cart/list.css?version=2018052715'/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jsp/shop/css/top.css?version=20180411'/>">
 <style type="text/css">
 body{

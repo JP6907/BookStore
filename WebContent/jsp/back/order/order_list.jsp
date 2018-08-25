@@ -32,9 +32,9 @@ $(function() {
 		alert("确定要修改该订单状态吗？");
 		 var selected=$(this).children('option:selected').val();
 		 var id = $(this).attr("id");
-		 alert(id);
+		 //alert(id);
 		 id = id.substring(0, id.length-6);
-		 alert(id);
+		// alert(id);
 		 sendUpdateStatus(Number(id),selected);
 	});  
 });

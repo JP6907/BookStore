@@ -118,20 +118,17 @@ public class OrderController {
 	 */
 	@RequestMapping("/createNewOrder")
 	private String createNewOrder(Model model,HttpServletRequest request) throws Exception{
-		
 		System.out.println("创建新订单");
-		String[] cartitemid = request.getParameterValues("cartitemid");
-	 	
+		String[] cartitemid = request.getParameterValues("cartitemid");//获取到勾选的条目
 		if(cartitemid!=null){
 			
 			System.out.println(cartitemid.length);
-			
+			//根据id获取具体数据
 			List<CartDetails> itemList = cartItemService.getCartItemByCartitemid(cartitemid);
 			
 			System.out.println(itemList.size());
 			
-			model.addAttribute("itemList",itemList);
-			
+			model.addAttribute("itemList",itemList);	
 	        
 			return "shop/order/createOrder";
 		}else{
